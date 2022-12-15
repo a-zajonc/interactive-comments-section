@@ -3,12 +3,21 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { extendTheme } from "@chakra-ui/react";
 
+const theme = extendTheme({
+  fonts: {
+    heading: "Rubik",
+    body: "Rubik",
+  },
+});
+
+export default theme;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={extendTheme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>

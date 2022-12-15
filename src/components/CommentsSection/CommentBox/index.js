@@ -27,6 +27,6 @@ exports.CommentBox = void 0;
 const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
 function CommentBox() {
-    return React.createElement(react_1.Box, null, "Comment");
+    return React.createElement(react_1.Box, { fontSize: "100px" }, "Comment");
 }
 exports.CommentBox = CommentBox;
