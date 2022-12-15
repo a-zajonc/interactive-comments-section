@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box } from "@chakra-ui/react";
-import { CommentSection } from "./components/CommentsSection";
+import { CommentSection } from "./components/";
 
 function App() {
   return <Box>

@@ -25,9 +25,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
-const CommentsSection_1 = require("./components/CommentsSection");
+const components_1 = require("./components/");
 function App() {
     return React.createElement(react_1.Box, null,
-        React.createElement(CommentsSection_1.CommentSection, null));
+        React.createElement(components_1.CommentSection, null));
 }
 exports.default = App;
