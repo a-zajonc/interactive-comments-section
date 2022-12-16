@@ -12,12 +12,11 @@ const theme = extendTheme({
   },
 });
 
-export default theme;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={extendTheme}>
+    <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>
