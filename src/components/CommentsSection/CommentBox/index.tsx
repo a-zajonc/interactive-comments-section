@@ -11,9 +11,10 @@ export function CommentBox() {
       flexDirection="row"
       bgColor="white"
       rounded="10px"
-      w="650px"
+      w="700px"
       h="200px"
       padding="20px"
+      marginBottom="20px"
     >
       <Rater />
       <Box display="flex" flexDirection="column" marginLeft="10px">
