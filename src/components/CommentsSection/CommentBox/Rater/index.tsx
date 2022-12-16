@@ -3,7 +3,7 @@ import { Box, Img, Text } from "@chakra-ui/react";
 import imgPlus from "../../../../images/svg/icon-plus.svg";
 import imgMinus from "../../../../images/svg/icon-minus.svg";
 
-export function Rater() {
+export function Rater({ score }: { score: number }) {
   return (
     <Box
       bgColor="#EAECF1"
@@ -18,7 +18,7 @@ export function Rater() {
     >
       <Img src={imgPlus} alt="plus"></Img>
       <Text color="#5457B6" fontWeight="700">
-        12
+        {score}
       </Text>
       <Img src={imgMinus} alt="minus"></Img>
     </Box>
