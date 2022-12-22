@@ -1,60 +1,39 @@
 import * as React from "react";
-import { Box, Img, Text } from "@chakra-ui/react";
-import { Rater } from "./Rater";
-import avatar from "../../../images/avatars/image-amyrobson.png";
-import imgReply from "../../../images/svg/icon-reply.svg";
+import { Box } from "@chakra-ui/react";
 import data from "../../../data.json";
+import { CommentDisplay } from "./CommentDisplay";
 
 export function CommentBox() {
   return (
-    <React.Fragment>
+    <Box>
       {data.comments.map((comment, id) => {
         return (
-          <Box
-            key={id}
-            display="flex"
-            flexDirection="row"
-            bgColor="white"
-            rounded="10px"
-            w="700px"
-            h="200px"
-            padding="20px"
-            marginBottom="20px"
-          >
-            <Rater score={comment.score} />
-            <Box display="flex" flexDirection="column" marginLeft="10px">
-              <Box
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                w="100%"
-                marginBottom="15px"
-              >
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  w="50%"
-                >
-                  <Img src={avatar} alt="avatar" h="50px"></Img>
-                  <Text color="black" fontWeight="500">
-                    {comment.user.username}
-                  </Text>
-                  <Text color="#67727E">{comment.createdAt}</Text>
-                </Box>
-                <Box display="flex" flexDirection="row" alignItems="center">
-                  <Img src={imgReply} alt="reply" marginRight="10px" />
-                  <Text color="#5457B6" fontWeight="700">
-                    Reply
-                  </Text>
-                </Box>
+          <Box key={id}>
+            <CommentDisplay
+              score={comment.score}
+              username={comment.user.username}
+              date={comment.createdAt}
+              content={comment.content}
+            />
+            {comment.replies.length < 1 ? null : (
+              <Box bgColor="#D0d2d6" w="1px" marginLeft="65px">
+                {comment.replies.map((reply, id) => {
+                  return (
+                    <CommentDisplay
+                      key={id}
+                      score={reply.score}
+                      username={reply.user.username}
+                      date={reply.createdAt}
+                      replyingTo={reply.replyingTo}
+                      content={reply.content}
+                    />
+                  );
+                })}
               </Box>
-              <Text color="#67727E">{comment.content}</Text>
-            </Box>
+            )}
           </Box>
         );
       })}
-    </React.Fragment>
+    </Box>
   );
 }
