@@ -14,10 +14,12 @@ export function CommentBox() {
               username={comment.user.username}
               date={comment.createdAt}
               content={comment.content}
+              avatar={comment.user.image.png}
             />
             {comment.replies.length < 1 ? null : (
               <Box bgColor="#D0d2d6" w="1px" marginLeft="65px">
                 {comment.replies.map((reply, id) => {
+                  console.log(reply.user.image.png);
                   return (
                     <CommentDisplay
                       key={id}
@@ -26,6 +28,7 @@ export function CommentBox() {
                       date={reply.createdAt}
                       replyingTo={reply.replyingTo}
                       content={reply.content}
+                      avatar={reply.user.image.png}
                     />
                   );
                 })}
