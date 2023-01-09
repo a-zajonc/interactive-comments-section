@@ -1,6 +1,8 @@
 import { Box, Img, Text } from "@chakra-ui/react";
 import { Rater } from "../Rater";
 import imgReply from "../../../../images/svg/icon-reply.svg";
+import imgDelete from "../../../../images/svg/icon-delete.svg";
+import imgEdit from "../../../../images/svg/icon-edit.svg";
 
 export function CommentDisplay({
   score,
@@ -53,13 +55,45 @@ export function CommentDisplay({
             <Text color="black" fontWeight="500">
               {username}
             </Text>
+            {username === "juliusomo" ? (
+              <Box
+                bgColor="#5457B6"
+                color="white"
+                fontSize="14px"
+                fontWeight="500"
+                paddingBlock="1px"
+                paddingInline="8px"
+              >
+                you
+              </Box>
+            ) : null}
             <Text color="#67727E">{date}</Text>
           </Box>
-          <Box display="flex" flexDirection="row" alignItems="center">
-            <Img src={imgReply} alt="reply" marginRight="10px" />
-            <Text color="#5457B6" fontWeight="700">
-              Reply
-            </Text>
+          <Box display="flex" flexDirection="row">
+            {username === "juliusomo" ? (
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Img src={imgDelete} alt="delete" marginRight="10px" />
+                <Text color="#ED6468" fontWeight="500">
+                  Delete
+                </Text>
+                <Img
+                  src={imgEdit}
+                  alt="delete"
+                  marginRight="10px"
+                  marginLeft="20px"
+                />
+                <Text color="#5457B6" fontWeight="500">
+                  Edit
+                </Text>
+              </Box>
+            ) : (
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Img src={imgReply} alt="reply" marginRight="10px" />
+                <Text color="#5457B6" fontWeight="500">
+                  Reply
+                </Text>
+              </Box>
+            )}
           </Box>
         </Box>
         <Box>
