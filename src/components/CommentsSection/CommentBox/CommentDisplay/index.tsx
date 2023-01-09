@@ -1,6 +1,5 @@
 import { Box, Img, Text } from "@chakra-ui/react";
 import { Rater } from "../Rater";
-import avatar from "../../../../images/avatars/image-amyrobson.png";
 import imgReply from "../../../../images/svg/icon-reply.svg";
 
 export function CommentDisplay({
@@ -9,12 +8,14 @@ export function CommentDisplay({
   date,
   content,
   replyingTo,
+  avatar,
 }: {
   score: number;
   username: string;
   date: string;
   content: string;
   replyingTo?: string;
+  avatar: string;
 }) {
   return (
     <Box
@@ -44,7 +45,11 @@ export function CommentDisplay({
             alignItems="center"
             w="50%"
           >
-            <Img src={avatar} alt="avatar" h="50px"></Img>
+            <Img
+              src={require("../../../../images/avatars/".concat(avatar))}
+              alt="avatar"
+              h="50px"
+            ></Img>
             <Text color="black" fontWeight="500">
               {username}
             </Text>
