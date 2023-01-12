@@ -13,7 +13,6 @@ function App() {
         setComments(commentsData);
       });
   }, []);
-  console.log(comments);
 
   return (
     <Box display="flex" justifyContent="center" marginBlock="80px">
