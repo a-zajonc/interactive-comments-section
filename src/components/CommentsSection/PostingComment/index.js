@@ -35,8 +35,18 @@ const context_1 = require("../../../context");
 function PostingComment() {
     const [content, setContent] = React.useState();
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
+    function repliesLength(comments) {
+        return comments.map((comment) => {
+            return comment.replies.length;
+        });
+    }
+    const commentsId = comments.length +
+        1 +
+        repliesLength(comments).reduce(function (previousValue, currentValue) {
+            return previousValue + currentValue;
+        }, 0);
     const addedComment = {
-        id: 5,
+        id: commentsId,
         content: content,
         createdAt: "now",
         score: 0,
@@ -49,7 +59,6 @@ function PostingComment() {
         },
         replies: [],
     };
-    console.log(comments);
     let isError = false;
     const submit = (event) => {
         event.preventDefault();
