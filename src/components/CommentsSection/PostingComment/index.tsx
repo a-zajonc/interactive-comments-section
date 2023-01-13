@@ -15,8 +15,24 @@ export function PostingComment() {
 
   const { comments, setComments } = React.useContext(CommentsContext);
 
+  function repliesLength(comments: any) {
+    return comments.map((comment: any) => {
+      return comment.replies.length;
+    });
+  }
+  const commentsId: number =
+    comments.length +
+    1 +
+    repliesLength(comments).reduce(function (
+      previousValue: number,
+      currentValue: number
+    ) {
+      return previousValue + currentValue;
+    },
+    0);
+
   const addedComment: Comment = {
-    id: 5,
+    id: commentsId,
     content: content,
     createdAt: "now",
     score: 0,
@@ -46,7 +62,6 @@ export function PostingComment() {
     png: string;
     webp: string;
   }
-  console.log(comments);
 
   let isError = false;
 
