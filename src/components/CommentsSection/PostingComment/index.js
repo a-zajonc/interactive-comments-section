@@ -33,18 +33,20 @@ const react_1 = require("@chakra-ui/react");
 const image_juliusomo_png_1 = __importDefault(require("../../../images/avatars/image-juliusomo.png"));
 const context_1 = require("../../../context");
 function PostingComment() {
-    const [content, setContent] = React.useState();
+    const [content, setContent] = React.useState("");
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
+    const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
     function repliesLength(comments) {
         return comments.map((comment) => {
             return comment.replies.length;
         });
     }
-    const commentsId = comments.length +
-        1 +
-        repliesLength(comments).reduce(function (previousValue, currentValue) {
-            return previousValue + currentValue;
-        }, 0);
+    const commentsId = comments &&
+        comments.length +
+            1 +
+            repliesLength(comments).reduce(function (previousValue, currentValue) {
+                return previousValue + currentValue;
+            }, 0);
     const addedComment = {
         id: commentsId,
         content: content,
@@ -62,14 +64,25 @@ function PostingComment() {
     let isError = false;
     const submit = (event) => {
         event.preventDefault();
-        {
-            !content || content.length < 5
-                ? console.log("To short!")
-                : setComments((comments) => {
+        !content || content.length < 5
+            ? console.log("To short!")
+            : setComments((comments) => {
+                if (replyID === 0) {
                     return [...comments, addedComment];
-                });
-        }
+                }
+                else {
+                    return comments.map((singleComment) => {
+                        if (singleComment.id === replyID) {
+                            return Object.assign(Object.assign({}, singleComment), { replies: singleComment.replies.concat(addedComment) });
+                        }
+                        else {
+                            return singleComment;
+                        }
+                    });
+                }
+            });
+        setReplyID(0);
     };
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: submit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ bgColor: "white", rounded: "10px", padding: "20px", w: "780px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: image_juliusomo_png_1.default, alt: "avatar" }), (0, jsx_runtime_1.jsx)(react_1.FormControl, Object.assign({ isInvalid: isError, paddingInline: "10px" }, { children: (0, jsx_runtime_1.jsx)(react_1.Textarea, { placeholder: "Add a comment...", variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", focusBorderColor: "#324152", borderWidth: "1px", color: "#324152", onChange: (event) => setContent(event.target.value) }) })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", padding: "10px", w: "20%", _hover: { opacity: "0.5" }, type: "submit" }, { children: "Send" }))] })) })));
+    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: submit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ bgColor: "white", rounded: "10px", padding: "20px", w: "100%", marginLeft: "0px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: image_juliusomo_png_1.default, alt: "avatar" }), (0, jsx_runtime_1.jsx)(react_1.FormControl, Object.assign({ isInvalid: isError, paddingInline: "10px" }, { children: (0, jsx_runtime_1.jsx)(react_1.Textarea, { placeholder: "Add a comment...", variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", focusBorderColor: "#324152", borderWidth: "1px", color: "#324152", onChange: (event) => setContent(event.target.value) }) })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", padding: "10px", w: "20%", _hover: { opacity: "0.5" }, type: "submit" }, { children: "Send" }))] })) })));
 }
 exports.PostingComment = PostingComment;

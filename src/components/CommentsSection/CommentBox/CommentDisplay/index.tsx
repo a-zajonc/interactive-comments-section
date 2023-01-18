@@ -1,10 +1,13 @@
+import * as React from "react";
 import { Box, Img, Text } from "@chakra-ui/react";
 import { Rater } from "../Rater";
 import imgReply from "../../../../images/svg/icon-reply.svg";
 import imgDelete from "../../../../images/svg/icon-delete.svg";
 import imgEdit from "../../../../images/svg/icon-edit.svg";
+import { ReplyContext } from "../../../../context";
 
 export function CommentDisplay({
+  id,
   score,
   username,
   date,
@@ -12,6 +15,7 @@ export function CommentDisplay({
   replyingTo,
   avatar,
 }: {
+  id: number;
   score: number;
   username: string;
   date: string;
@@ -19,6 +23,8 @@ export function CommentDisplay({
   replyingTo?: string;
   avatar: string;
 }) {
+  const { replyID, setReplyID } = React.useContext(ReplyContext);
+
   return (
     <Box
       display="flex"
@@ -29,7 +35,6 @@ export function CommentDisplay({
       h="200px"
       padding="20px"
       marginBottom="20px"
-      marginLeft={replyingTo ? "65px" : "0px"}
     >
       <Rater score={score} />
       <Box display="flex" flexDirection="column" marginLeft="10px">
@@ -87,7 +92,14 @@ export function CommentDisplay({
                 </Text>
               </Box>
             ) : (
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                onClick={() => {
+                  replyID === id ? setReplyID(0) : setReplyID(id);
+                }}
+              >
                 <Img src={imgReply} alt="reply" marginRight="10px" />
                 <Text color="#5457B6" fontWeight="500">
                   Reply

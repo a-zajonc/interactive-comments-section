@@ -1,3 +1,7 @@
 import { createContext } from "react";
 
-export const CommentsContext = createContext<any | undefined>(undefined);
+export const CommentsContext = createContext<any | undefined>([]);
+
+export const ReplyContext = createContext<any | undefined>("");
+
+export const PostingCommentWidthContext = createContext<any | undefined>("");
