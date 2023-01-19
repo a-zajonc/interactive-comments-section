@@ -4,7 +4,7 @@ import { Rater } from "../Rater";
 import imgReply from "../../../../images/svg/icon-reply.svg";
 import imgDelete from "../../../../images/svg/icon-delete.svg";
 import imgEdit from "../../../../images/svg/icon-edit.svg";
-import { ReplyContext } from "../../../../context";
+import { ReplyContext, ReplyToUsernameContext } from "../../../../context";
 
 export function CommentDisplay({
   id,
@@ -24,6 +24,7 @@ export function CommentDisplay({
   avatar: string;
 }) {
   const { replyID, setReplyID } = React.useContext(ReplyContext);
+  const { setReplyToUsername } = React.useContext(ReplyToUsernameContext);
 
   return (
     <Box
@@ -31,7 +32,7 @@ export function CommentDisplay({
       flexDirection="row"
       bgColor="white"
       rounded="10px"
-      w={replyingTo ? "650px" : "780px"}
+      w="100%"
       h="200px"
       padding="20px"
       marginBottom="20px"
@@ -98,6 +99,7 @@ export function CommentDisplay({
                 alignItems="center"
                 onClick={() => {
                   replyID === id ? setReplyID(0) : setReplyID(id);
+                  setReplyToUsername(username);
                 }}
               >
                 <Img src={imgReply} alt="reply" marginRight="10px" />
