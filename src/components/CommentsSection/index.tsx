@@ -7,7 +7,7 @@ export function CommentSection() {
   return (
     <Box>
       <CommentBox />
-      <PostingComment />
+      <PostingComment defaultValue="" replyMode={false} />
     </Box>
   );
 }

@@ -4,4 +4,4 @@ export const CommentsContext = createContext<any | undefined>([]);
 
 export const ReplyContext = createContext<any | undefined>("");
 
-export const PostingCommentWidthContext = createContext<any | undefined>("");
+export const ReplyToUsernameContext = createContext<any | undefined>("");

@@ -8,14 +8,28 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
-import { CommentsContext, ReplyContext } from "../../../context";
+import {
+  CommentsContext,
+  ReplyContext,
+  ReplyToUsernameContext,
+} from "../../../context";
 
-export function PostingComment() {
+export function PostingComment({
+  defaultValue,
+  replyMode,
+}: {
+  defaultValue: string;
+  replyMode: boolean;
+}) {
+  const { replyToUsername } = React.useContext(ReplyToUsernameContext);
+
   const [content, setContent] = React.useState<string>("");
 
   const { comments, setComments } = React.useContext(CommentsContext);
 
   const { replyID, setReplyID } = React.useContext(ReplyContext);
+
+  const ref = React.useRef<string | any>("");
 
   function repliesLength(comments: any) {
     return comments.map((comment: any) => {
@@ -38,6 +52,7 @@ export function PostingComment() {
     id: commentsId,
     content: content,
     createdAt: "now",
+    replyingTo: replyToUsername,
     score: 0,
     user: {
       image: {
@@ -67,12 +82,12 @@ export function PostingComment() {
   }
 
   let isError = false;
-  const submit = (event: any | undefined) => {
+  const handleSubmit = (event: any | undefined) => {
     event.preventDefault();
     !content || content.length < 5
       ? console.log("To short!")
       : setComments((comments: any) => {
-          if (replyID === 0) {
+          if (replyMode === false) {
             return [...comments, addedComment];
           } else {
             return comments.map((singleComment: any) => {
@@ -87,11 +102,12 @@ export function PostingComment() {
             });
           }
         });
-    setReplyID(0);
+    ref.current.value = "";
+    return replyMode === true ? setReplyID(0) : null;
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={handleSubmit}>
       <Box
         bgColor="white"
         rounded="10px"
@@ -118,7 +134,13 @@ export function PostingComment() {
             focusBorderColor="#324152"
             borderWidth="1px"
             color="#324152"
-            onChange={(event) => setContent(event.target.value)}
+            ref={ref}
+            onChange={(event) =>
+              setContent(() =>
+                event.target.value.replace(`@${replyToUsername}, `, "")
+              )
+            }
+            defaultValue={defaultValue}
           />
         </FormControl>
         <Button

@@ -6,6 +6,6 @@ const react_1 = require("@chakra-ui/react");
 const CommentBox_1 = require("./CommentBox");
 const PostingComment_1 = require("./PostingComment");
 function CommentSection() {
-    return ((0, jsx_runtime_1.jsxs)(react_1.Box, { children: [(0, jsx_runtime_1.jsx)(CommentBox_1.CommentBox, {}), (0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, {})] }));
+    return ((0, jsx_runtime_1.jsxs)(react_1.Box, { children: [(0, jsx_runtime_1.jsx)(CommentBox_1.CommentBox, {}), (0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, { defaultValue: "", replyMode: false })] }));
 }
 exports.CommentSection = CommentSection;
