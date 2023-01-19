@@ -38,12 +38,11 @@ export function CommentDisplay({
       marginBottom="20px"
     >
       <Rater score={score} />
-      <Box display="flex" flexDirection="column" marginLeft="10px">
+      <Box display="flex" flexDirection="column" w="100%">
         <Box
           display="flex"
           flexDirection="row"
           justifyContent="space-between"
-          w="100%"
           marginBottom="15px"
         >
           <Box
