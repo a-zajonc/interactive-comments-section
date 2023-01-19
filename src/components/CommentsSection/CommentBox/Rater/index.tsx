@@ -12,9 +12,10 @@ export function Rater({ score }: { score: number }) {
       flexDirection="column"
       alignItems="center"
       justifyContent="space-evenly"
-      h="90%"
-      w="8%"
+      h="130px"
+      w="40px"
       padding="10px"
+      marginRight="20px"
     >
       <Img src={imgPlus} alt="plus"></Img>
       <Text color="#5457B6" fontWeight="700">
