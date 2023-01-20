@@ -2,9 +2,9 @@ import * as React from "react";
 import { Box, Img, Text } from "@chakra-ui/react";
 import { Rater } from "../Rater";
 import imgReply from "../../../../images/svg/icon-reply.svg";
-import imgDelete from "../../../../images/svg/icon-delete.svg";
 import imgEdit from "../../../../images/svg/icon-edit.svg";
 import { ReplyContext, ReplyToUsernameContext } from "../../../../context";
+import { DeleteComment } from "../../DeleteComment";
 
 export function CommentDisplay({
   id,
@@ -77,10 +77,7 @@ export function CommentDisplay({
           <Box display="flex" flexDirection="row">
             {username === "juliusomo" ? (
               <Box display="flex" flexDirection="row" alignItems="center">
-                <Img src={imgDelete} alt="delete" marginRight="10px" />
-                <Text color="#ED6468" fontWeight="500">
-                  Delete
-                </Text>
+                <DeleteComment id={id} />
                 <Img
                   src={imgEdit}
                   alt="delete"

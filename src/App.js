@@ -32,6 +32,7 @@ function App() {
     const [comments, setComments] = React.useState([]);
     const [replyID, setReplyID] = React.useState(0);
     const [replyToUsername, setReplyToUsername] = React.useState("");
+    const [deleteID, setDeleteID] = React.useState(0);
     React.useEffect(() => {
         fetch("http://localhost:3001/api/comments")
             .then((res) => res.json())
@@ -39,6 +40,6 @@ function App() {
             setComments(commentsData);
         });
     }, []);
-    return ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ display: "flex", justifyContent: "center", marginBlock: "80px" }, { children: (0, jsx_runtime_1.jsx)(context_1.CommentsContext.Provider, Object.assign({ value: { comments, setComments } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyContext.Provider, Object.assign({ value: { replyID, setReplyID } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyToUsernameContext.Provider, Object.assign({ value: { replyToUsername, setReplyToUsername } }, { children: (0, jsx_runtime_1.jsx)(components_1.CommentSection, {}) })) })) })) })));
+    return ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ display: "flex", justifyContent: "center", marginBlock: "80px" }, { children: (0, jsx_runtime_1.jsx)(context_1.CommentsContext.Provider, Object.assign({ value: { comments, setComments } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyContext.Provider, Object.assign({ value: { replyID, setReplyID } }, { children: (0, jsx_runtime_1.jsx)(context_1.DeleteContext.Provider, Object.assign({ value: { deleteID, setDeleteID } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyToUsernameContext.Provider, Object.assign({ value: { replyToUsername, setReplyToUsername } }, { children: (0, jsx_runtime_1.jsx)(components_1.CommentSection, {}) })) })) })) })) })));
 }
 exports.default = App;

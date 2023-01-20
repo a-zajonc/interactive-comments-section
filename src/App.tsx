@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { CommentSection } from "./components/";
 import {
   CommentsContext,
+  DeleteContext,
   ReplyContext,
   ReplyToUsernameContext,
 } from "./context";
@@ -11,6 +12,7 @@ function App() {
   const [comments, setComments] = React.useState([]);
   const [replyID, setReplyID] = React.useState(0);
   const [replyToUsername, setReplyToUsername] = React.useState("");
+  const [deleteID, setDeleteID] = React.useState(0);
 
   React.useEffect(() => {
     fetch("http://localhost:3001/api/comments")
@@ -24,11 +26,13 @@ function App() {
     <Box display="flex" justifyContent="center" marginBlock="80px">
       <CommentsContext.Provider value={{ comments, setComments }}>
         <ReplyContext.Provider value={{ replyID, setReplyID }}>
-          <ReplyToUsernameContext.Provider
-            value={{ replyToUsername, setReplyToUsername }}
-          >
-            <CommentSection />
-          </ReplyToUsernameContext.Provider>
+          <DeleteContext.Provider value={{ deleteID, setDeleteID }}>
+            <ReplyToUsernameContext.Provider
+              value={{ replyToUsername, setReplyToUsername }}
+            >
+              <CommentSection />
+            </ReplyToUsernameContext.Provider>
+          </DeleteContext.Provider>
         </ReplyContext.Provider>
       </CommentsContext.Provider>
     </Box>

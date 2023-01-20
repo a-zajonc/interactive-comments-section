@@ -18,7 +18,7 @@ export function PostingComment({
   defaultValue,
   replyMode,
 }: {
-  defaultValue: string;
+  defaultValue: string | any;
   replyMode: boolean;
 }) {
   const { replyToUsername } = React.useContext(ReplyToUsernameContext);
