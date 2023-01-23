@@ -15,10 +15,38 @@ import {
   Box,
 } from "@chakra-ui/react";
 import imgDelete from "../../../images/svg/icon-delete.svg";
-import { DeleteContext } from "../../../context";
+import { CommentsContext, DeleteContext } from "../../../context";
 
 export function DeleteComment({ id }: { id: number }) {
   const { deleteID, setDeleteID } = React.useContext(DeleteContext);
+  const { comments, setComments } = React.useContext(CommentsContext);
+
+  function findDeletedCommentIndex() {
+    const index: number = comments.findIndex((singleComment: any) => {
+      return singleComment.id === id;
+    });
+    return index >= 0
+      ? comments.splice(index, 1) && setComments([...comments])
+      : comments[replyCommentIndex[0]].replies.splice(
+          replyCommentIndex[1],
+          1
+        ) && setComments([...comments]);
+  }
+
+  const replyCommentIndex = comments
+    .map((singleComment: any, singleCommentIndex: any) => {
+      return singleComment.replies
+        .map((reply: any, replyIndex: any) => {
+          if (reply.id === id) {
+            return [singleCommentIndex, replyIndex];
+          }
+        })
+        .filter((element: any) => {
+          return element !== undefined;
+        });
+    })
+    .filter((element: any) => element.length > 0)
+    .flat(2);
 
   return (
     <Popover>
@@ -67,7 +95,7 @@ export function DeleteComment({ id }: { id: number }) {
                   color="white"
                   padding="22px"
                   rounded="5px"
-                  onClick={() => console.log(deleteID)}
+                  onClick={() => findDeletedCommentIndex()}
                 >
                   Yes, delete
                 </Button>

@@ -34,8 +34,31 @@ const icon_delete_svg_1 = __importDefault(require("../../../images/svg/icon-dele
 const context_1 = require("../../../context");
 function DeleteComment({ id }) {
     const { deleteID, setDeleteID } = React.useContext(context_1.DeleteContext);
+    const { comments, setComments } = React.useContext(context_1.CommentsContext);
+    function findDeletedCommentIndex() {
+        const index = comments.findIndex((singleComment) => {
+            return singleComment.id === id;
+        });
+        return index >= 0
+            ? comments.splice(index, 1) && setComments([...comments])
+            : comments[replyCommentIndex[0]].replies.splice(replyCommentIndex[1], 1) && setComments([...comments]);
+    }
+    const replyCommentIndex = comments
+        .map((singleComment, singleCommentIndex) => {
+        return singleComment.replies
+            .map((reply, replyIndex) => {
+            if (reply.id === id) {
+                return [singleCommentIndex, replyIndex];
+            }
+        })
+            .filter((element) => {
+            return element !== undefined;
+        });
+    })
+        .filter((element) => element.length > 0)
+        .flat(2);
     return ((0, jsx_runtime_1.jsx)(react_1.Popover, { children: ({ onClose }) => ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_1.PopoverTrigger, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", onClick: () => {
                             deleteID === id ? setDeleteID(0) : setDeleteID(id);
-                        } }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: icon_delete_svg_1.default, alt: "delete", marginRight: "10px" }), (0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#ED6468", fontWeight: "500" }, { children: "Delete" }))] })) }), (0, jsx_runtime_1.jsxs)(react_1.PopoverContent, Object.assign({ w: "350px", padding: "10px", borderColor: "#D0d2d6" }, { children: [(0, jsx_runtime_1.jsx)(react_1.PopoverArrow, {}), (0, jsx_runtime_1.jsx)(react_1.PopoverCloseButton, {}), (0, jsx_runtime_1.jsx)(react_1.PopoverHeader, Object.assign({ color: "#324152", fontWeight: "700", fontSize: "24px" }, { children: "Delete comment" })), (0, jsx_runtime_1.jsx)(react_1.PopoverBody, Object.assign({ color: "#67727E" }, { children: "Are you sure you want to delete this comment? This will remove the comment and can't be undone." })), (0, jsx_runtime_1.jsx)(react_1.PopoverFooter, Object.assign({ display: "flex", justifyContent: "space-around" }, { children: (0, jsx_runtime_1.jsxs)(react_1.ButtonGroup, Object.assign({ size: "sm" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ bgColor: "#67727E", textTransform: "uppercase", color: "white", padding: "22px", rounded: "5px", onClick: onClose }, { children: "No, cancel" })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ bgColor: "#ED6468", textTransform: "uppercase", color: "white", padding: "22px", rounded: "5px", onClick: () => console.log(deleteID) }, { children: "Yes, delete" }))] })) }))] }))] })) }));
+                        } }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: icon_delete_svg_1.default, alt: "delete", marginRight: "10px" }), (0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#ED6468", fontWeight: "500" }, { children: "Delete" }))] })) }), (0, jsx_runtime_1.jsxs)(react_1.PopoverContent, Object.assign({ w: "350px", padding: "10px", borderColor: "#D0d2d6" }, { children: [(0, jsx_runtime_1.jsx)(react_1.PopoverArrow, {}), (0, jsx_runtime_1.jsx)(react_1.PopoverCloseButton, {}), (0, jsx_runtime_1.jsx)(react_1.PopoverHeader, Object.assign({ color: "#324152", fontWeight: "700", fontSize: "24px" }, { children: "Delete comment" })), (0, jsx_runtime_1.jsx)(react_1.PopoverBody, Object.assign({ color: "#67727E" }, { children: "Are you sure you want to delete this comment? This will remove the comment and can't be undone." })), (0, jsx_runtime_1.jsx)(react_1.PopoverFooter, Object.assign({ display: "flex", justifyContent: "space-around" }, { children: (0, jsx_runtime_1.jsxs)(react_1.ButtonGroup, Object.assign({ size: "sm" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ bgColor: "#67727E", textTransform: "uppercase", color: "white", padding: "22px", rounded: "5px", onClick: onClose }, { children: "No, cancel" })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ bgColor: "#ED6468", textTransform: "uppercase", color: "white", padding: "22px", rounded: "5px", onClick: () => findDeletedCommentIndex() }, { children: "Yes, delete" }))] })) }))] }))] })) }));
 }
 exports.DeleteComment = DeleteComment;
