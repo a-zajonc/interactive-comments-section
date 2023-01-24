@@ -13,6 +13,7 @@ import {
   ReplyContext,
   ReplyToUsernameContext,
 } from "../../../context";
+import { inflate } from "zlib";
 
 export function PostingComment({
   defaultValue,
@@ -36,7 +37,7 @@ export function PostingComment({
       return comment.replies.length;
     });
   }
-  const commentsId: number =
+  const commentsIdSetter: number =
     comments &&
     comments.length +
       1 +
@@ -49,7 +50,7 @@ export function PostingComment({
       0);
 
   const addedComment: Comment = {
-    id: commentsId,
+    id: commentsIdSetter,
     content: content,
     createdAt: "now",
     replyingTo: replyToUsername,
@@ -82,24 +83,55 @@ export function PostingComment({
   }
 
   let isError = false;
+
   const handleSubmit = (event: any | undefined) => {
     event.preventDefault();
+
+    function replyToReply() {
+      const replyToReplyId = comments
+        .map((singleComment: any, commentIndex: number) => {
+          return singleComment.replies
+            .map((reply: any, replyIndex: number) => {
+              if (reply.id === replyID) {
+                return [commentIndex, replyIndex];
+              }
+            })
+            .filter((element: any) => {
+              return element !== undefined;
+            });
+        })
+        .flat(3);
+
+      comments[replyToReplyId[0]].replies.splice(
+        replyToReplyId[1] + 1,
+        0,
+        addedComment
+      );
+      return [...comments];
+    }
+
     !content || content.length < 5
       ? console.log("To short!")
       : setComments((comments: any) => {
           if (replyMode === false) {
             return [...comments, addedComment];
-          } else {
+          }
+          if (
+            comments.find(
+              (singleComment: any) => singleComment.id === replyID
+            ) !== undefined
+          ) {
             return comments.map((singleComment: any) => {
               if (singleComment.id === replyID) {
                 return {
                   ...singleComment,
                   replies: singleComment.replies.concat(addedComment),
                 };
-              } else {
-                return singleComment;
               }
+              return singleComment;
             });
+          } else {
+            return replyToReply();
           }
         });
     ref.current.value = "";
