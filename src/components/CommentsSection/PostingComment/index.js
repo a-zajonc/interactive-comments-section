@@ -43,14 +43,14 @@ function PostingComment({ defaultValue, replyMode, }) {
             return comment.replies.length;
         });
     }
-    const commentsId = comments &&
+    const commentsIdSetter = comments &&
         comments.length +
             1 +
             repliesLength(comments).reduce(function (previousValue, currentValue) {
                 return previousValue + currentValue;
             }, 0);
     const addedComment = {
-        id: commentsId,
+        id: commentsIdSetter,
         content: content,
         createdAt: "now",
         replyingTo: replyToUsername,
@@ -67,21 +67,39 @@ function PostingComment({ defaultValue, replyMode, }) {
     let isError = false;
     const handleSubmit = (event) => {
         event.preventDefault();
+        function replyToReply() {
+            const replyToReplyId = comments
+                .map((singleComment, commentIndex) => {
+                return singleComment.replies
+                    .map((reply, replyIndex) => {
+                    if (reply.id === replyID) {
+                        return [commentIndex, replyIndex];
+                    }
+                })
+                    .filter((element) => {
+                    return element !== undefined;
+                });
+            })
+                .flat(3);
+            comments[replyToReplyId[0]].replies.splice(replyToReplyId[1] + 1, 0, addedComment);
+            return [...comments];
+        }
         !content || content.length < 5
             ? console.log("To short!")
             : setComments((comments) => {
                 if (replyMode === false) {
                     return [...comments, addedComment];
                 }
-                else {
+                if (comments.find((singleComment) => singleComment.id === replyID) !== undefined) {
                     return comments.map((singleComment) => {
                         if (singleComment.id === replyID) {
                             return Object.assign(Object.assign({}, singleComment), { replies: singleComment.replies.concat(addedComment) });
                         }
-                        else {
-                            return singleComment;
-                        }
+                        return singleComment;
                     });
+                }
+                else {
+                    return replyToReply();
                 }
             });
         ref.current.value = "";
