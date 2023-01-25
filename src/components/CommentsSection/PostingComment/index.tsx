@@ -13,7 +13,7 @@ import {
   ReplyContext,
   ReplyToUsernameContext,
 } from "../../../context";
-import { inflate } from "zlib";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 export function PostingComment({
   defaultValue,
@@ -52,7 +52,7 @@ export function PostingComment({
   const addedComment: Comment = {
     id: commentsIdSetter,
     content: content,
-    createdAt: "now",
+    createdAt: formatDistanceToNow(new Date()),
     replyingTo: replyToUsername,
     score: 0,
     user: {

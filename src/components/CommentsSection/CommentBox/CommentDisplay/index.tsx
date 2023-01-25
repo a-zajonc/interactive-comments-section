@@ -50,7 +50,7 @@ export function CommentDisplay({
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            w="50%"
+            w="340px"
           >
             <Img
               src={require("../../../../images/avatars/".concat(avatar))}

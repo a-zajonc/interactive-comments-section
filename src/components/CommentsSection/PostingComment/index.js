@@ -32,12 +32,14 @@ const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
 const image_juliusomo_png_1 = __importDefault(require("../../../images/avatars/image-juliusomo.png"));
 const context_1 = require("../../../context");
+const formatDistanceToNow_1 = __importDefault(require("date-fns/formatDistanceToNow"));
 function PostingComment({ defaultValue, replyMode, }) {
     const { replyToUsername } = React.useContext(context_1.ReplyToUsernameContext);
     const [content, setContent] = React.useState("");
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
     const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
     const ref = React.useRef("");
+    console.log((0, formatDistanceToNow_1.default)(new Date(1994, 2, 12)));
     function repliesLength(comments) {
         return comments.map((comment) => {
             return comment.replies.length;
@@ -52,7 +54,7 @@ function PostingComment({ defaultValue, replyMode, }) {
     const addedComment = {
         id: commentsIdSetter,
         content: content,
-        createdAt: "now",
+        createdAt: (0, formatDistanceToNow_1.default)(new Date()),
         replyingTo: replyToUsername,
         score: 0,
         user: {
