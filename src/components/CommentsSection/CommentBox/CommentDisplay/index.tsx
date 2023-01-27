@@ -37,7 +37,7 @@ export function CommentDisplay({
       padding="20px"
       marginBottom="20px"
     >
-      <Rater score={score} />
+      <Rater score={score} username={username} />
       <Box display="flex" flexDirection="column" w="100%">
         <Box
           display="flex"
