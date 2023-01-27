@@ -39,7 +39,6 @@ function PostingComment({ defaultValue, replyMode, }) {
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
     const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
     const ref = React.useRef("");
-    console.log((0, formatDistanceToNow_1.default)(new Date(1994, 2, 12)));
     function repliesLength(comments) {
         return comments.map((comment) => {
             return comment.replies.length;
