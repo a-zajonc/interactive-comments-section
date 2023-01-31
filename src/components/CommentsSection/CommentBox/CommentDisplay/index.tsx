@@ -2,9 +2,14 @@ import * as React from "react";
 import { Box, Img, Text } from "@chakra-ui/react";
 import { Rater } from "../Rater";
 import imgReply from "../../../../images/svg/icon-reply.svg";
-import imgEdit from "../../../../images/svg/icon-edit.svg";
-import { ReplyContext, ReplyToUsernameContext } from "../../../../context";
+import {
+  EditContext,
+  ReplyContext,
+  ReplyToUsernameContext,
+} from "../../../../context";
 import { DeleteComment } from "../../DeleteComment";
+import { EditComment } from "../../EditComment";
+import { UpdateComment } from "../../UpdateComment";
 
 export function CommentDisplay({
   id,
@@ -25,6 +30,7 @@ export function CommentDisplay({
 }) {
   const { replyID, setReplyID } = React.useContext(ReplyContext);
   const { setReplyToUsername } = React.useContext(ReplyToUsernameContext);
+  const { editID } = React.useContext(EditContext);
 
   return (
     <Box
@@ -33,12 +39,13 @@ export function CommentDisplay({
       bgColor="white"
       rounded="10px"
       w="100%"
-      h="200px"
+      minH="200px"
+      maxH="100%"
       padding="20px"
       marginBottom="20px"
     >
       <Rater score={score} username={username} />
-      <Box display="flex" flexDirection="column" w="100%">
+      <Box display="flex" flexDirection="column" w="100%" h="100%">
         <Box
           display="flex"
           flexDirection="row"
@@ -78,15 +85,7 @@ export function CommentDisplay({
             {username === "juliusomo" ? (
               <Box display="flex" flexDirection="row" alignItems="center">
                 <DeleteComment id={id} />
-                <Img
-                  src={imgEdit}
-                  alt="delete"
-                  marginRight="10px"
-                  marginLeft="20px"
-                />
-                <Text color="#5457B6" fontWeight="500">
-                  Edit
-                </Text>
+                <EditComment id={id} />
               </Box>
             ) : (
               <Box
@@ -108,19 +107,25 @@ export function CommentDisplay({
         </Box>
         <Box>
           {replyingTo ? (
-            <Box>
-              <Text
-                as="span"
-                color="#67727E"
-                fontWeight="400"
-                wordBreak="break-word"
-              >
-                <Text as="span" color="#5457B6" fontWeight="500">
-                  @{replyingTo.concat(" ")}
+            editID === id ? (
+              <UpdateComment content={content} replyingTo={replyingTo} />
+            ) : (
+              <Box>
+                <Text
+                  as="span"
+                  color="#67727E"
+                  fontWeight="400"
+                  wordBreak="break-word"
+                >
+                  <Text as="span" color="#5457B6" fontWeight="500">
+                    @{replyingTo.concat(" ")}
+                  </Text>
+                  {content}
                 </Text>
-                {content}
-              </Text>
-            </Box>
+              </Box>
+            )
+          ) : editID === id ? (
+            <UpdateComment content={content} replyingTo={replyingTo} />
           ) : (
             <Text color="#67727E">{content}</Text>
           )}

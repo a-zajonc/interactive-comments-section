@@ -163,9 +163,7 @@ export function PostingComment({
             rounded="10px"
             padding="10px"
             paddingLeft="20px"
-            focusBorderColor="#324152"
-            borderWidth="1px"
-            color="#324152"
+            focusBorderColor="darkBlue"
             ref={ref}
             onChange={(event) =>
               setContent(() =>
@@ -181,12 +179,11 @@ export function PostingComment({
           textTransform="uppercase"
           color="white"
           fontWeight="700"
-          padding="10px"
-          w="20%"
+          w="100px"
           _hover={{ opacity: "0.5" }}
           type="submit"
         >
-          Send
+          {replyMode === true ? "Reply" : "Send"}
         </Button>
       </Box>
     </form>
