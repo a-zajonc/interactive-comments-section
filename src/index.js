@@ -4,11 +4,31 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { extendTheme } from "@chakra-ui/react";
+import { defineStyleConfig } from "@chakra-ui/react";
+
+const Textarea = defineStyleConfig({
+  variants: {
+    outline: {
+      border: "1px solid",
+      borderColor: "#EAECF1",
+      _focus: { borderColor: "#5457B6" },
+      color: "#67727E",
+    },
+  },
+});
 
 const theme = extendTheme({
+  colors: {
+    brand: {
+      darkBlue: "#5457B6",
+    },
+  },
   fonts: {
     heading: "Rubik",
     body: "Rubik",
+  },
+  components: {
+    Textarea,
   },
 });
 

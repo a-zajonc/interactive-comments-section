@@ -6,6 +6,7 @@ import {
   DeleteContext,
   ReplyContext,
   ReplyToUsernameContext,
+  EditContext,
 } from "./context";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [replyID, setReplyID] = React.useState(0);
   const [replyToUsername, setReplyToUsername] = React.useState("");
   const [deleteID, setDeleteID] = React.useState(0);
+  const [editID, setEditID] = React.useState(0);
 
   React.useEffect(() => {
     fetch("http://localhost:3001/api/comments")
@@ -25,15 +27,17 @@ function App() {
   return (
     <Box display="flex" justifyContent="center" marginBlock="80px">
       <CommentsContext.Provider value={{ comments, setComments }}>
-        <ReplyContext.Provider value={{ replyID, setReplyID }}>
-          <DeleteContext.Provider value={{ deleteID, setDeleteID }}>
-            <ReplyToUsernameContext.Provider
-              value={{ replyToUsername, setReplyToUsername }}
-            >
-              <CommentSection />
-            </ReplyToUsernameContext.Provider>
-          </DeleteContext.Provider>
-        </ReplyContext.Provider>
+        <EditContext.Provider value={{ editID, setEditID }}>
+          <ReplyContext.Provider value={{ replyID, setReplyID }}>
+            <DeleteContext.Provider value={{ deleteID, setDeleteID }}>
+              <ReplyToUsernameContext.Provider
+                value={{ replyToUsername, setReplyToUsername }}
+              >
+                <CommentSection />
+              </ReplyToUsernameContext.Provider>
+            </DeleteContext.Provider>
+          </ReplyContext.Provider>
+        </EditContext.Provider>
       </CommentsContext.Provider>
     </Box>
   );
