@@ -38,6 +38,7 @@ function PostingComment({ defaultValue, replyMode, }) {
     const [content, setContent] = React.useState("");
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
     const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
+    const [lengthError, setLengthError] = React.useState(false);
     const ref = React.useRef("");
     function repliesLength(comments) {
         return comments.map((comment) => {
@@ -65,10 +66,9 @@ function PostingComment({ defaultValue, replyMode, }) {
         },
         replies: [],
     };
-    let isError = false;
     const handleSubmit = (event) => {
         event.preventDefault();
-        function replyToReply() {
+        function addReplyToReply() {
             const replyToReplyId = comments
                 .map((singleComment, commentIndex) => {
                 return singleComment.replies
@@ -86,7 +86,7 @@ function PostingComment({ defaultValue, replyMode, }) {
             return [...comments];
         }
         !content || content.length < 5
-            ? console.log("To short!")
+            ? setLengthError(true)
             : setComments((comments) => {
                 if (replyMode === false) {
                     return [...comments, addedComment];
@@ -100,12 +100,23 @@ function PostingComment({ defaultValue, replyMode, }) {
                     });
                 }
                 else {
-                    return replyToReply();
+                    return addReplyToReply();
                 }
             });
-        ref.current.value = "";
-        return replyMode === true ? setReplyID(0) : null;
+        if (content.length >= 5) {
+            setLengthError(false);
+            setContent("");
+            ref.current.value = "";
+        }
+        else {
+            setLengthError(true);
+        }
+        if (replyMode === true && content.length >= 5) {
+            setReplyID(0);
+        }
+        if (replyMode === true && content.length >= 5) {
+        }
     };
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ bgColor: "white", rounded: "10px", padding: "20px", w: "100%", marginLeft: "0px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: image_juliusomo_png_1.default, alt: "avatar" }), (0, jsx_runtime_1.jsx)(react_1.FormControl, Object.assign({ isInvalid: isError, paddingInline: "10px" }, { children: (0, jsx_runtime_1.jsx)(react_1.Textarea, { placeholder: "Add a comment...", variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", focusBorderColor: "darkBlue", ref: ref, onChange: (event) => setContent(() => event.target.value.replace(`@${replyToUsername}, `, "")), defaultValue: defaultValue }) })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", w: "100px", _hover: { opacity: "0.5" }, type: "submit" }, { children: replyMode === true ? "Reply" : "Send" }))] })) })));
+    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ bgColor: "white", rounded: "10px", padding: "20px", w: "100%", marginLeft: "0px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: image_juliusomo_png_1.default, alt: "avatar" }), (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ display: "flex", flexDir: "column", w: "100%", paddingInline: "10px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Textarea, { placeholder: "Add a comment...", variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", focusBorderColor: "darkBlue", isInvalid: lengthError, ref: ref, onChange: (event) => setContent(() => event.target.value.replace(`@${replyToUsername}, `, "")), defaultValue: defaultValue }), lengthError === true ? ((0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#ED6468" }, { children: "Comments must be at least 5 characters long." }))) : null] })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", w: "100px", _hover: { opacity: "0.5" }, type: "submit" }, { children: replyMode === true ? "Reply" : "Send" }))] })) })));
 }
 exports.PostingComment = PostingComment;

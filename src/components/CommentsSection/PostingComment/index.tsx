@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  Img,
-  Button,
-  Textarea,
-  FormControl,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { Box, Img, Button, Textarea, Text } from "@chakra-ui/react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
 import {
   CommentsContext,
@@ -29,6 +22,8 @@ export function PostingComment({
   const { comments, setComments } = React.useContext(CommentsContext);
 
   const { replyID, setReplyID } = React.useContext(ReplyContext);
+
+  const [lengthError, setLengthError] = React.useState(false);
 
   const ref = React.useRef<string | any>("");
 
@@ -82,12 +77,10 @@ export function PostingComment({
     webp: string;
   }
 
-  let isError = false;
-
   const handleSubmit = (event: any | undefined) => {
     event.preventDefault();
 
-    function replyToReply() {
+    function addReplyToReply() {
       const replyToReplyId = comments
         .map((singleComment: any, commentIndex: number) => {
           return singleComment.replies
@@ -101,7 +94,6 @@ export function PostingComment({
             });
         })
         .flat(3);
-
       comments[replyToReplyId[0]].replies.splice(
         replyToReplyId[1] + 1,
         0,
@@ -111,7 +103,7 @@ export function PostingComment({
     }
 
     !content || content.length < 5
-      ? console.log("To short!")
+      ? setLengthError(true)
       : setComments((comments: any) => {
           if (replyMode === false) {
             return [...comments, addedComment];
@@ -131,11 +123,21 @@ export function PostingComment({
               return singleComment;
             });
           } else {
-            return replyToReply();
+            return addReplyToReply();
           }
         });
-    ref.current.value = "";
-    return replyMode === true ? setReplyID(0) : null;
+    if (content.length >= 5) {
+      setLengthError(false);
+      setContent("");
+      ref.current.value = "";
+    } else {
+      setLengthError(true);
+    }
+    if (replyMode === true && content.length >= 5) {
+      setReplyID(0);
+    }
+    if (replyMode === true && content.length >= 5) {
+    }
   };
 
   return (
@@ -153,7 +155,7 @@ export function PostingComment({
         marginBottom="20px"
       >
         <Img src={avatar} alt="avatar" />
-        <FormControl isInvalid={isError} paddingInline="10px">
+        <Box display="flex" flexDir="column" w="100%" paddingInline="10px">
           <Textarea
             placeholder="Add a comment..."
             variant="outline"
@@ -164,6 +166,7 @@ export function PostingComment({
             padding="10px"
             paddingLeft="20px"
             focusBorderColor="darkBlue"
+            isInvalid={lengthError}
             ref={ref}
             onChange={(event) =>
               setContent(() =>
@@ -172,7 +175,12 @@ export function PostingComment({
             }
             defaultValue={defaultValue}
           />
-        </FormControl>
+          {lengthError === true ? (
+            <Text color="#ED6468">
+              Comments must be at least 5 characters long.
+            </Text>
+          ) : null}
+        </Box>
         <Button
           rounded="10px"
           bgColor="#5457B6"
