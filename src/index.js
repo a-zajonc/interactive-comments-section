@@ -12,6 +12,7 @@ const Textarea = defineStyleConfig({
       border: "1px solid",
       borderColor: "#EAECF1",
       _focus: { borderColor: "#5457B6" },
+      _invalid: { borderColor: "#ED6468" },
       color: "#67727E",
     },
   },
