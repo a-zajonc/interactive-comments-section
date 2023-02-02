@@ -36,9 +36,35 @@ function CommentBox() {
     const { replyToUsername } = React.useContext(context_1.ReplyToUsernameContext);
     return ((0, jsx_runtime_1.jsx)(react_1.Box, { children: comments &&
             comments.map((singleComment, id) => {
-                return ((0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ w: "780px" }, { children: [(0, jsx_runtime_1.jsx)(CommentDisplay_1.CommentDisplay, { id: singleComment.id, score: singleComment.score, username: singleComment.user.username, date: singleComment.createdAt, content: singleComment.content, avatar: singleComment.user.image.png }), replyID === singleComment.id ? ((0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, { defaultValue: `@${replyToUsername}, `, replyMode: true })) : null, singleComment.replies &&
-                            singleComment.replies.length < 1 ? null : ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ bgColor: "#D0d2d6", w: "1px", marginLeft: "65px" }, { children: singleComment.replies.map((reply) => {
-                                return ((0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ w: "650px", marginLeft: "65px" }, { children: [(0, jsx_runtime_1.jsx)(CommentDisplay_1.CommentDisplay, { id: reply.id, score: reply.score, username: reply.user.username, date: reply.createdAt, replyingTo: reply.replyingTo, content: reply.content, avatar: reply.user.image.png }), replyID === reply.id ? ((0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, { defaultValue: `@${replyToUsername}, `, replyMode: true })) : null] }), reply.id));
+                return ((0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ w: {
+                        base: "300px",
+                        xs: "400px",
+                        sm: "600px",
+                        md: "650px",
+                        lg: "700px",
+                        xl: "780px",
+                    } }, { children: [(0, jsx_runtime_1.jsx)(CommentDisplay_1.CommentDisplay, { id: singleComment.id, score: singleComment.score, username: singleComment.user.username, date: singleComment.createdAt, content: singleComment.content, avatar: singleComment.user.image.png }), replyID === singleComment.id ? ((0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, { defaultValue: `@${replyToUsername}, `, replyMode: true })) : null, singleComment.replies &&
+                            singleComment.replies.length < 1 ? null : ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ bgColor: "#D0d2d6", w: "1px", marginLeft: {
+                                xs: "20px",
+                                sm: "35px",
+                                md: "40px",
+                                lg: "55px",
+                                xl: "65px",
+                            } }, { children: singleComment.replies.map((reply) => {
+                                return ((0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ w: {
+                                        base: "300px",
+                                        xs: "360px",
+                                        sm: "530px",
+                                        md: "570px",
+                                        lg: "590px",
+                                        xl: "650px",
+                                    }, marginLeft: {
+                                        xs: "20px",
+                                        sm: "35px",
+                                        md: "40px",
+                                        lg: "55px",
+                                        xl: "65px",
+                                    } }, { children: [(0, jsx_runtime_1.jsx)(CommentDisplay_1.CommentDisplay, { id: reply.id, score: reply.score, username: reply.user.username, date: reply.createdAt, replyingTo: reply.replyingTo, content: reply.content, avatar: reply.user.image.png }), replyID === reply.id ? ((0, jsx_runtime_1.jsx)(PostingComment_1.PostingComment, { defaultValue: `@${replyToUsername}, `, replyMode: true })) : null] }), reply.id));
                             }) })))] }), id.toString()));
             }) }));
 }

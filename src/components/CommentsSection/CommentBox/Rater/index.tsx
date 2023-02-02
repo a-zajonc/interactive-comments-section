@@ -28,12 +28,12 @@ export function Rater({ score }: { score: number; username: string }) {
       bgColor="#EAECF1"
       rounded="10px"
       display="flex"
-      flexDirection="column"
+      flexDirection={{ base: "row", sm: "column" }}
       alignItems="center"
       justifyContent="space-evenly"
-      h="130px"
-      w="40px"
-      marginRight="20px"
+      h={{ base: "40px", sm: "130px" }}
+      w={{ base: "130px", sm: "40px" }}
+      marginRight={{ sm: "10px", md: "20px" }}
     >
       <IconButton
         bgColor="#EAECF1"

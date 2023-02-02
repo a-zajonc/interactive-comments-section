@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Box, Img, Button, Textarea, Text } from "@chakra-ui/react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
 import {
   CommentsContext,
@@ -7,6 +6,9 @@ import {
   ReplyToUsernameContext,
 } from "../../../context";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { DesktopPostingComment } from "./DesktopPostingComment";
+import { MobileCommentsDisplay } from "../CommentBox/CommentDisplay/MobileCommentsDisplay";
+import { MobilePostingComment } from "./MobilePostingComment";
 
 export function PostingComment({
   defaultValue,
@@ -140,60 +142,36 @@ export function PostingComment({
     }
   };
 
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const breakpoint = 613;
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
-      <Box
-        bgColor="white"
-        rounded="10px"
-        padding="20px"
-        w="100%"
-        marginLeft="0px"
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        marginBottom="20px"
-      >
-        <Img src={avatar} alt="avatar" />
-        <Box display="flex" flexDir="column" w="100%" paddingInline="10px">
-          <Textarea
-            placeholder="Add a comment..."
-            variant="outline"
-            w="100%"
-            minH="100px"
-            resize="none"
-            rounded="10px"
-            padding="10px"
-            paddingLeft="20px"
-            focusBorderColor="darkBlue"
-            isInvalid={lengthError}
-            ref={ref}
-            onChange={(event) =>
-              setContent(() =>
-                event.target.value.replace(`@${replyToUsername}, `, "")
-              )
-            }
-            defaultValue={defaultValue}
-          />
-          {lengthError === true ? (
-            <Text color="#ED6468">
-              Comments must be at least 5 characters long.
-            </Text>
-          ) : null}
-        </Box>
-        <Button
-          rounded="10px"
-          bgColor="#5457B6"
-          textTransform="uppercase"
-          color="white"
-          fontWeight="700"
-          w="100px"
-          _hover={{ opacity: "0.5" }}
-          type="submit"
-        >
-          {replyMode === true ? "Reply" : "Send"}
-        </Button>
-      </Box>
+      {width <= breakpoint ? (
+        <MobilePostingComment
+          avatar={avatar}
+          lengthError={lengthError}
+          ref={ref}
+          replyToUsername={replyToUsername}
+          defaultValue={defaultValue}
+          replyMode={replyMode}
+          setContent={setContent}
+        />
+      ) : (
+        <DesktopPostingComment
+          avatar={avatar}
+          lengthError={lengthError}
+          ref={ref}
+          replyToUsername={replyToUsername}
+          defaultValue={defaultValue}
+          replyMode={replyMode}
+          setContent={setContent}
+        />
+      )}
     </form>
   );
 }

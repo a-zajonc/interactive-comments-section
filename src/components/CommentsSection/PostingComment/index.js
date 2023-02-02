@@ -29,10 +29,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostingComment = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
-const react_1 = require("@chakra-ui/react");
 const image_juliusomo_png_1 = __importDefault(require("../../../images/avatars/image-juliusomo.png"));
 const context_1 = require("../../../context");
 const formatDistanceToNow_1 = __importDefault(require("date-fns/formatDistanceToNow"));
+const DesktopPostingComment_1 = require("./DesktopPostingComment");
+const MobilePostingComment_1 = require("./MobilePostingComment");
 function PostingComment({ defaultValue, replyMode, }) {
     const { replyToUsername } = React.useContext(context_1.ReplyToUsernameContext);
     const [content, setContent] = React.useState("");
@@ -117,6 +118,11 @@ function PostingComment({ defaultValue, replyMode, }) {
         if (replyMode === true && content.length >= 5) {
         }
     };
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ bgColor: "white", rounded: "10px", padding: "20px", w: "100%", marginLeft: "0px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: image_juliusomo_png_1.default, alt: "avatar" }), (0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ display: "flex", flexDir: "column", w: "100%", paddingInline: "10px" }, { children: [(0, jsx_runtime_1.jsx)(react_1.Textarea, { placeholder: "Add a comment...", variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", focusBorderColor: "darkBlue", isInvalid: lengthError, ref: ref, onChange: (event) => setContent(() => event.target.value.replace(`@${replyToUsername}, `, "")), defaultValue: defaultValue }), lengthError === true ? ((0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#ED6468" }, { children: "Comments must be at least 5 characters long." }))) : null] })), (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", w: "100px", _hover: { opacity: "0.5" }, type: "submit" }, { children: replyMode === true ? "Reply" : "Send" }))] })) })));
+    const [width, setWidth] = React.useState(window.innerWidth);
+    const breakpoint = 613;
+    React.useEffect(() => {
+        window.addEventListener("resize", () => setWidth(window.innerWidth));
+    }, []);
+    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobilePostingComment_1.MobilePostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, ref: ref, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) : ((0, jsx_runtime_1.jsx)(DesktopPostingComment_1.DesktopPostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, ref: ref, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) })));
 }
 exports.PostingComment = PostingComment;
