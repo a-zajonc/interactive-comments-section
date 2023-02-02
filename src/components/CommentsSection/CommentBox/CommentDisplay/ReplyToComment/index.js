@@ -22,19 +22,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommentDisplay = void 0;
+exports.ReplyToComment = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
-const DesktopCommentsDisplay_1 = require("./DesktopCommentsDisplay");
-const MobileCommentsDisplay_1 = require("./MobileCommentsDisplay");
-function CommentDisplay({ id, score, username, date, content, replyingTo, avatar, }) {
-    const [width, setWidth] = React.useState(window.innerWidth);
-    const breakpoint = 613;
-    React.useEffect(() => {
-        window.addEventListener("resize", () => setWidth(window.innerWidth));
-    }, []);
-    return ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ w: "100%" }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobileCommentsDisplay_1.MobileCommentsDisplay, { id: id, score: score, username: username, date: date, content: content, replyingTo: replyingTo, avatar: avatar })) : ((0, jsx_runtime_1.jsx)(DesktopCommentsDisplay_1.DesktopCommentsDisplay, { id: id, score: score, username: username, date: date, content: content, replyingTo: replyingTo, avatar: avatar })) })));
+const icon_reply_svg_1 = __importDefault(require("../../../../../images/svg/icon-reply.svg"));
+const context_1 = require("../../../../../context");
+function ReplyToComment({ id, username, }) {
+    const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
+    const { setReplyToUsername } = React.useContext(context_1.ReplyToUsernameContext);
+    return ((0, jsx_runtime_1.jsxs)(react_1.Box, Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", onClick: () => {
+            replyID === id ? setReplyID(0) : setReplyID(id);
+            setReplyToUsername(username);
+        } }, { children: [(0, jsx_runtime_1.jsx)(react_1.Img, { src: icon_reply_svg_1.default, alt: "reply", marginRight: "10px" }), (0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#5457B6", fontWeight: "500" }, { children: "Reply" }))] })));
 }
-exports.CommentDisplay = CommentDisplay;
+exports.ReplyToComment = ReplyToComment;

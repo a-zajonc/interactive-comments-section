@@ -23,18 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommentDisplay = void 0;
+exports.ContentDisplay = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
-const DesktopCommentsDisplay_1 = require("./DesktopCommentsDisplay");
-const MobileCommentsDisplay_1 = require("./MobileCommentsDisplay");
-function CommentDisplay({ id, score, username, date, content, replyingTo, avatar, }) {
-    const [width, setWidth] = React.useState(window.innerWidth);
-    const breakpoint = 613;
-    React.useEffect(() => {
-        window.addEventListener("resize", () => setWidth(window.innerWidth));
-    }, []);
-    return ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ w: "100%" }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobileCommentsDisplay_1.MobileCommentsDisplay, { id: id, score: score, username: username, date: date, content: content, replyingTo: replyingTo, avatar: avatar })) : ((0, jsx_runtime_1.jsx)(DesktopCommentsDisplay_1.DesktopCommentsDisplay, { id: id, score: score, username: username, date: date, content: content, replyingTo: replyingTo, avatar: avatar })) })));
+const UpdateComment_1 = require("../../../UpdateComment");
+const context_1 = require("../../../../../context");
+function ContentDisplay({ id, content, replyingTo, }) {
+    const { editID } = React.useContext(context_1.EditContext);
+    return ((0, jsx_runtime_1.jsx)(react_1.Box, { children: replyingTo ? (editID === id ? ((0, jsx_runtime_1.jsx)(UpdateComment_1.UpdateComment, { content: content, replyingTo: replyingTo })) : ((0, jsx_runtime_1.jsx)(react_1.Box, { children: (0, jsx_runtime_1.jsxs)(react_1.Text, Object.assign({ as: "span", color: "#67727E", fontWeight: "400", wordBreak: "break-word" }, { children: [(0, jsx_runtime_1.jsxs)(react_1.Text, Object.assign({ as: "span", color: "#5457B6", fontWeight: "500" }, { children: ["@", replyingTo.concat(" ")] })), content] })) }))) : editID === id ? ((0, jsx_runtime_1.jsx)(UpdateComment_1.UpdateComment, { content: content, replyingTo: replyingTo })) : ((0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#67727E" }, { children: content }))) }));
 }
-exports.CommentDisplay = CommentDisplay;
+exports.ContentDisplay = ContentDisplay;

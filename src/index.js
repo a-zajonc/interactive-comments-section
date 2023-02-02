@@ -6,6 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { extendTheme } from "@chakra-ui/react";
 import { defineStyleConfig } from "@chakra-ui/react";
 
+const breakpoints = {
+  xs: "320px",
+  sm: "614px",
+  md: "665px",
+  lg: "710px",
+  xl: "800px",
+  "2xl": "1536px",
+};
+
 const Textarea = defineStyleConfig({
   variants: {
     outline: {
@@ -31,6 +40,7 @@ const theme = extendTheme({
   components: {
     Textarea,
   },
+  breakpoints,
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

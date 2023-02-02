@@ -18,7 +18,17 @@ export function CommentBox() {
       {comments &&
         comments.map((singleComment: any, id: number) => {
           return (
-            <Box key={id.toString()} w="780px">
+            <Box
+              key={id.toString()}
+              w={{
+                base: "300px",
+                xs: "400px",
+                sm: "600px",
+                md: "650px",
+                lg: "700px",
+                xl: "780px",
+              }}
+            >
               <CommentDisplay
                 id={singleComment.id}
                 score={singleComment.score}
@@ -35,10 +45,37 @@ export function CommentBox() {
               ) : null}
               {singleComment.replies &&
               singleComment.replies.length < 1 ? null : (
-                <Box bgColor="#D0d2d6" w="1px" marginLeft="65px">
+                <Box
+                  bgColor="#D0d2d6"
+                  w="1px"
+                  marginLeft={{
+                    xs: "20px",
+                    sm: "35px",
+                    md: "40px",
+                    lg: "55px",
+                    xl: "65px",
+                  }}
+                >
                   {singleComment.replies.map((reply: any) => {
                     return (
-                      <Box key={reply.id} w="650px" marginLeft="65px">
+                      <Box
+                        key={reply.id}
+                        w={{
+                          base: "300px",
+                          xs: "360px",
+                          sm: "530px",
+                          md: "570px",
+                          lg: "590px",
+                          xl: "650px",
+                        }}
+                        marginLeft={{
+                          xs: "20px",
+                          sm: "35px",
+                          md: "40px",
+                          lg: "55px",
+                          xl: "65px",
+                        }}
+                      >
                         <CommentDisplay
                           id={reply.id}
                           score={reply.score}
