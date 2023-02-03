@@ -7,7 +7,6 @@ import {
 } from "../../../context";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { DesktopPostingComment } from "./DesktopPostingComment";
-import { MobileCommentsDisplay } from "../CommentBox/CommentDisplay/MobileCommentsDisplay";
 import { MobilePostingComment } from "./MobilePostingComment";
 
 export function PostingComment({
@@ -26,8 +25,6 @@ export function PostingComment({
   const { replyID, setReplyID } = React.useContext(ReplyContext);
 
   const [lengthError, setLengthError] = React.useState(false);
-
-  const ref = React.useRef<string | any>("");
 
   function repliesLength(comments: any) {
     return comments.map((comment: any) => {
@@ -131,7 +128,7 @@ export function PostingComment({
     if (content.length >= 5) {
       setLengthError(false);
       setContent("");
-      ref.current.value = "";
+      event.target.reset();
     } else {
       setLengthError(true);
     }
@@ -155,7 +152,6 @@ export function PostingComment({
         <MobilePostingComment
           avatar={avatar}
           lengthError={lengthError}
-          ref={ref}
           replyToUsername={replyToUsername}
           defaultValue={defaultValue}
           replyMode={replyMode}
@@ -165,7 +161,6 @@ export function PostingComment({
         <DesktopPostingComment
           avatar={avatar}
           lengthError={lengthError}
-          ref={ref}
           replyToUsername={replyToUsername}
           defaultValue={defaultValue}
           replyMode={replyMode}

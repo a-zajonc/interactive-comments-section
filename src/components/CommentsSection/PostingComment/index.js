@@ -40,7 +40,6 @@ function PostingComment({ defaultValue, replyMode, }) {
     const { comments, setComments } = React.useContext(context_1.CommentsContext);
     const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
     const [lengthError, setLengthError] = React.useState(false);
-    const ref = React.useRef("");
     function repliesLength(comments) {
         return comments.map((comment) => {
             return comment.replies.length;
@@ -107,7 +106,7 @@ function PostingComment({ defaultValue, replyMode, }) {
         if (content.length >= 5) {
             setLengthError(false);
             setContent("");
-            ref.current.value = "";
+            event.target.reset();
         }
         else {
             setLengthError(true);
@@ -123,6 +122,6 @@ function PostingComment({ defaultValue, replyMode, }) {
     React.useEffect(() => {
         window.addEventListener("resize", () => setWidth(window.innerWidth));
     }, []);
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobilePostingComment_1.MobilePostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, ref: ref, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) : ((0, jsx_runtime_1.jsx)(DesktopPostingComment_1.DesktopPostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, ref: ref, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) })));
+    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobilePostingComment_1.MobilePostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) : ((0, jsx_runtime_1.jsx)(DesktopPostingComment_1.DesktopPostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) })));
 }
 exports.PostingComment = PostingComment;
