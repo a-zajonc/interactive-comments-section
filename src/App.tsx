@@ -9,7 +9,7 @@ import {
   EditContext,
 } from "./context";
 
-function App() {
+export function App() {
   const [comments, setComments] = React.useState([]);
   const [replyID, setReplyID] = React.useState(0);
   const [replyToUsername, setReplyToUsername] = React.useState("");

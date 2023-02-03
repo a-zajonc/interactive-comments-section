@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.App = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const react_1 = require("@chakra-ui/react");
@@ -43,4 +44,5 @@ function App() {
     }, []);
     return ((0, jsx_runtime_1.jsx)(react_1.Box, Object.assign({ display: "flex", justifyContent: "center", marginBlock: "80px" }, { children: (0, jsx_runtime_1.jsx)(context_1.CommentsContext.Provider, Object.assign({ value: { comments, setComments } }, { children: (0, jsx_runtime_1.jsx)(context_1.EditContext.Provider, Object.assign({ value: { editID, setEditID } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyContext.Provider, Object.assign({ value: { replyID, setReplyID } }, { children: (0, jsx_runtime_1.jsx)(context_1.DeleteContext.Provider, Object.assign({ value: { deleteID, setDeleteID } }, { children: (0, jsx_runtime_1.jsx)(context_1.ReplyToUsernameContext.Provider, Object.assign({ value: { replyToUsername, setReplyToUsername } }, { children: (0, jsx_runtime_1.jsx)(components_1.CommentSection, {}) })) })) })) })) })) })));
 }
+exports.App = App;
 exports.default = App;
