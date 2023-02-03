@@ -17,7 +17,7 @@ function App() {
   const [editID, setEditID] = React.useState(0);
 
   React.useEffect(() => {
-    fetch("http://localhost:3001/api/comments")
+    fetch("/api/comments")
       .then((res) => res.json())
       .then((commentsData) => {
         setComments(commentsData);

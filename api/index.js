@@ -1,9 +1,7 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const port = 3001;
 
-app.use(cors());
+app.set("port", process.env.PORT || 8081);
 
 app.get("/api/comments", (req, res) => {
   res.json([
@@ -71,6 +69,8 @@ app.get("/api/comments", (req, res) => {
   ]);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(app.get("port"), function () {
+  console.log("App is running on port", app.get("port"));
 });
+
+module.exports = app;
