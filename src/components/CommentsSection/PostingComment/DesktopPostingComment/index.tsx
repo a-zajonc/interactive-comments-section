@@ -3,7 +3,6 @@ import { Box, Img, Textarea, Button, Text } from "@chakra-ui/react";
 export function DesktopPostingComment({
   avatar,
   lengthError,
-  ref,
   replyToUsername,
   defaultValue,
   replyMode,
@@ -11,7 +10,6 @@ export function DesktopPostingComment({
 }: {
   avatar: string;
   lengthError: boolean;
-  ref: any;
   replyToUsername: string;
   defaultValue: any;
   replyMode: boolean;
@@ -43,7 +41,6 @@ export function DesktopPostingComment({
           paddingLeft="20px"
           focusBorderColor="darkBlue"
           isInvalid={lengthError}
-          ref={ref}
           onChange={(event) =>
             setContent(() =>
               event.target.value.replace(`@${replyToUsername}, `, "")

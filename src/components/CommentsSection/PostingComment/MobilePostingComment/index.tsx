@@ -3,7 +3,6 @@ import { Box, Img, Textarea, Button, Text } from "@chakra-ui/react";
 export function MobilePostingComment({
   avatar,
   lengthError,
-  ref,
   replyToUsername,
   defaultValue,
   replyMode,
@@ -11,7 +10,6 @@ export function MobilePostingComment({
 }: {
   avatar: string;
   lengthError: boolean;
-  ref: any;
   replyToUsername: string;
   defaultValue: any;
   replyMode: boolean;
@@ -41,7 +39,6 @@ export function MobilePostingComment({
         paddingLeft="20px"
         focusBorderColor="darkBlue"
         isInvalid={lengthError}
-        ref={ref}
         onChange={(event) =>
           setContent(() =>
             event.target.value.replace(`@${replyToUsername}, `, "")
