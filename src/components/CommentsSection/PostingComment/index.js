@@ -1,44 +1,15 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostingComment = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const React = __importStar(require("react"));
-const image_juliusomo_png_1 = __importDefault(require("../../../images/avatars/image-juliusomo.png"));
-const context_1 = require("../../../context");
-const formatDistanceToNow_1 = __importDefault(require("date-fns/formatDistanceToNow"));
-const DesktopPostingComment_1 = require("./DesktopPostingComment");
-const MobilePostingComment_1 = require("./MobilePostingComment");
-function PostingComment({ defaultValue, replyMode, }) {
-    const { replyToUsername } = React.useContext(context_1.ReplyToUsernameContext);
+import { jsx as _jsx } from "react/jsx-runtime";
+import * as React from "react";
+import avatar from "../../../images/avatars/image-juliusomo.png";
+import { CommentsContext, ReplyContext, ReplyToUsernameContext, } from "../../../context";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { DesktopPostingComment } from "./DesktopPostingComment";
+import { MobilePostingComment } from "./MobilePostingComment";
+export function PostingComment({ defaultValue, replyMode, }) {
+    const { replyToUsername } = React.useContext(ReplyToUsernameContext);
     const [content, setContent] = React.useState("");
-    const { comments, setComments } = React.useContext(context_1.CommentsContext);
-    const { replyID, setReplyID } = React.useContext(context_1.ReplyContext);
+    const { comments, setComments } = React.useContext(CommentsContext);
+    const { replyID, setReplyID } = React.useContext(ReplyContext);
     const [lengthError, setLengthError] = React.useState(false);
     function repliesLength(comments) {
         return comments.map((comment) => {
@@ -54,7 +25,7 @@ function PostingComment({ defaultValue, replyMode, }) {
     const addedComment = {
         id: commentsIdSetter,
         content: content,
-        createdAt: (0, formatDistanceToNow_1.default)(new Date()),
+        createdAt: formatDistanceToNow(new Date()),
         replyingTo: replyToUsername,
         score: 0,
         user: {
@@ -122,6 +93,5 @@ function PostingComment({ defaultValue, replyMode, }) {
     React.useEffect(() => {
         window.addEventListener("resize", () => setWidth(window.innerWidth));
     }, []);
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: width <= breakpoint ? ((0, jsx_runtime_1.jsx)(MobilePostingComment_1.MobilePostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) : ((0, jsx_runtime_1.jsx)(DesktopPostingComment_1.DesktopPostingComment, { avatar: image_juliusomo_png_1.default, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) })));
+    return (_jsx("form", Object.assign({ onSubmit: handleSubmit }, { children: width <= breakpoint ? (_jsx(MobilePostingComment, { avatar: avatar, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) : (_jsx(DesktopPostingComment, { avatar: avatar, lengthError: lengthError, replyToUsername: replyToUsername, defaultValue: defaultValue, replyMode: replyMode, setContent: setContent })) })));
 }
-exports.PostingComment = PostingComment;

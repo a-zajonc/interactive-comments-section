@@ -1,37 +1,11 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateComment = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const React = __importStar(require("react"));
-const react_1 = require("@chakra-ui/react");
-const context_1 = require("../../../context");
-function UpdateComment({ content, replyingTo, }) {
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import * as React from "react";
+import { Box, Textarea, Button, Text } from "@chakra-ui/react";
+import { CommentsContext, EditContext } from "../../../context";
+export function UpdateComment({ content, replyingTo, }) {
     const [updatedContent, setUpdatedContent] = React.useState(content);
-    const { comments } = React.useContext(context_1.CommentsContext);
-    const { editID, setEditID } = React.useContext(context_1.EditContext);
+    const { comments } = React.useContext(CommentsContext);
+    const { editID, setEditID } = React.useContext(EditContext);
     const [lengthError, setLengthError] = React.useState(false);
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -50,10 +24,9 @@ function UpdateComment({ content, replyingTo, }) {
                 setLengthError(false);
             });
     };
-    return ((0, jsx_runtime_1.jsx)("form", Object.assign({ onSubmit: handleSubmit }, { children: (0, jsx_runtime_1.jsxs)(react_1.Box, { children: [(0, jsx_runtime_1.jsx)(react_1.Textarea, { defaultValue: replyingTo ? `@${replyingTo}, ${content}` : content, variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", isInvalid: lengthError, onChange: (event) => setUpdatedContent(() => {
+    return (_jsx("form", Object.assign({ onSubmit: handleSubmit }, { children: _jsxs(Box, { children: [_jsx(Textarea, { defaultValue: replyingTo ? `@${replyingTo}, ${content}` : content, variant: "outline", w: "100%", minH: "100px", resize: "none", rounded: "10px", padding: "10px", paddingLeft: "20px", isInvalid: lengthError, onChange: (event) => setUpdatedContent(() => {
                         return replyingTo
                             ? event.target.value.replace(`@${replyingTo}, `, "")
                             : event.target.value;
-                    }) }), lengthError === true ? ((0, jsx_runtime_1.jsx)(react_1.Text, Object.assign({ color: "#ED6468" }, { children: "Comments must be at least 5 characters long." }))) : null, (0, jsx_runtime_1.jsx)(react_1.Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", _hover: { opacity: "0.5" }, type: "submit", marginTop: "10px", float: "right", w: "100px" }, { children: "Update" }))] }) })));
+                    }) }), lengthError === true ? (_jsx(Text, Object.assign({ color: "#ED6468" }, { children: "Comments must be at least 5 characters long." }))) : null, _jsx(Button, Object.assign({ rounded: "10px", bgColor: "#5457B6", textTransform: "uppercase", color: "white", fontWeight: "700", _hover: { opacity: "0.5" }, type: "submit", marginTop: "10px", float: "right", w: "100px" }, { children: "Update" }))] }) })));
 }
-exports.UpdateComment = UpdateComment;
