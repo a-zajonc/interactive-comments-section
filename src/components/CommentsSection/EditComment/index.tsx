@@ -8,6 +8,7 @@ export function EditComment({ id }: { id: number }) {
 
   return (
     <Box
+      role="button"
       display="flex"
       flexDirection="row"
       alignItems="center"

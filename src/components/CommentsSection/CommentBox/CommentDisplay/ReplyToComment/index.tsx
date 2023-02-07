@@ -15,6 +15,7 @@ export function ReplyToComment({
 
   return (
     <Box
+      role="button"
       display="flex"
       flexDirection="row"
       alignItems="center"
