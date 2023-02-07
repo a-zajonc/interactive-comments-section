@@ -54,6 +54,7 @@ export function DeleteComment({ id }: { id: number }) {
         <>
           <PopoverTrigger>
             <Box
+              role="button"
               display="flex"
               flexDirection="row"
               alignItems="center"
