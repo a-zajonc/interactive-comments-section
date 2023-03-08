@@ -2,7 +2,11 @@ import * as React from "react";
 import { Box, Text, IconButton } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
-export function Rater({ score }: { score: number; username: string }) {
+type RaterProps = {
+  score: number;
+};
+
+export function Rater({ score }: RaterProps) {
   const [newScore, setNewScore] = React.useState(score);
 
   const initialScore = score;

@@ -6,6 +6,16 @@ import { Rater } from "../../Rater";
 import { ReplyToComment } from "../ReplyToComment";
 import { ContentDisplay } from "../ContentDisplay";
 
+type MobileCommentsDisplay = {
+  id: number;
+  score: number;
+  username: string;
+  date: string;
+  content: string;
+  replyingTo?: string;
+  avatar: string;
+};
+
 export function MobileCommentsDisplay({
   id,
   score,
@@ -14,15 +24,7 @@ export function MobileCommentsDisplay({
   content,
   replyingTo,
   avatar,
-}: {
-  id: number;
-  score: number;
-  username: string;
-  date: string;
-  content: string;
-  replyingTo?: string;
-  avatar: string;
-}) {
+}: MobileCommentsDisplay) {
   return (
     <Box
       display="flex"
@@ -44,7 +46,7 @@ export function MobileCommentsDisplay({
         justifyContent="space-between"
         marginTop="10px"
       >
-        <Rater score={score} username={username} />
+        <Rater score={score} />
         {username === "juliusomo" ? (
           <Box display="flex" flexDirection="row" alignItems="center">
             <DeleteComment id={id} />

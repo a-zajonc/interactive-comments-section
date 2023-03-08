@@ -3,13 +3,12 @@ import { Box, Img, Text } from "@chakra-ui/react";
 import imgReply from "../../../../../images/svg/icon-reply.svg";
 import { ReplyContext, ReplyToUsernameContext } from "../../../../../context";
 
-export function ReplyToComment({
-  id,
-  username,
-}: {
+type ReplyToCommentProps = {
   id: number;
   username: string;
-}) {
+};
+
+export function ReplyToComment({ id, username }: ReplyToCommentProps) {
   const { replyID, setReplyID } = React.useContext(ReplyContext);
   const { setReplyToUsername } = React.useContext(ReplyToUsernameContext);
 

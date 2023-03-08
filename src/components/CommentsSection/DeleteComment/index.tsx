@@ -17,7 +17,11 @@ import {
 import imgDelete from "../../../images/svg/icon-delete.svg";
 import { CommentsContext, DeleteContext } from "../../../context";
 
-export function DeleteComment({ id }: { id: number }) {
+type DeleteCommentProps = {
+  id: number;
+};
+
+export function DeleteComment({ id }: DeleteCommentProps) {
   const { deleteID, setDeleteID } = React.useContext(DeleteContext);
   const { comments, setComments } = React.useContext(CommentsContext);
 

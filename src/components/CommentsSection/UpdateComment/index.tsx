@@ -2,13 +2,12 @@ import * as React from "react";
 import { Box, Textarea, Button, Text } from "@chakra-ui/react";
 import { CommentsContext, EditContext } from "../../../context";
 
-export function UpdateComment({
-  content,
-  replyingTo,
-}: {
+type UpdateCommentProps = {
   content: string;
   replyingTo: string | undefined;
-}) {
+};
+
+export function UpdateComment({ content, replyingTo }: UpdateCommentProps) {
   const [updatedContent, setUpdatedContent] = React.useState(content);
   const { comments } = React.useContext(CommentsContext);
   const { editID, setEditID } = React.useContext(EditContext);

@@ -3,6 +3,16 @@ import { Box } from "@chakra-ui/react";
 import { DesktopCommentsDisplay } from "./DesktopCommentsDisplay";
 import { MobileCommentsDisplay } from "./MobileCommentsDisplay";
 
+type CommentDisplayProps = {
+  id: number;
+  score: number;
+  username: string;
+  date: string;
+  content: string;
+  replyingTo?: string;
+  avatar: string;
+};
+
 export function CommentDisplay({
   id,
   score,
@@ -11,15 +21,7 @@ export function CommentDisplay({
   content,
   replyingTo,
   avatar,
-}: {
-  id: number;
-  score: number;
-  username: string;
-  date: string;
-  content: string;
-  replyingTo?: string;
-  avatar: string;
-}) {
+}: CommentDisplayProps) {
   const [width, setWidth] = React.useState(window.innerWidth);
   const breakpoint = 613;
 
