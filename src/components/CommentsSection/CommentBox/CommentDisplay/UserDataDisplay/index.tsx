@@ -1,14 +1,16 @@
 import { Box, Img, Text } from "@chakra-ui/react";
 
+type UserDataDisplayProps = {
+  username: string;
+  date: string;
+  avatar: string;
+};
+
 export function UserDataDisplay({
   username,
   date,
   avatar,
-}: {
-  username: string;
-  date: string;
-  avatar: string;
-}) {
+}: UserDataDisplayProps) {
   return (
     <Box
       display="flex"

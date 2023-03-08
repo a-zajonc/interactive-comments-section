@@ -1,5 +1,14 @@
 import { Box, Img, Textarea, Button, Text } from "@chakra-ui/react";
 
+type DesktopPostingCommentProps = {
+  avatar: string;
+  lengthError: boolean;
+  replyToUsername: string;
+  defaultValue: any;
+  replyMode: boolean;
+  setContent: any;
+};
+
 export function DesktopPostingComment({
   avatar,
   lengthError,
@@ -7,14 +16,7 @@ export function DesktopPostingComment({
   defaultValue,
   replyMode,
   setContent,
-}: {
-  avatar: string;
-  lengthError: boolean;
-  replyToUsername: string;
-  defaultValue: any;
-  replyMode: boolean;
-  setContent: any;
-}) {
+}: DesktopPostingCommentProps) {
   return (
     <Box
       bgColor="white"

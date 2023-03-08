@@ -1,5 +1,14 @@
 import { Box, Img, Textarea, Button, Text } from "@chakra-ui/react";
 
+type MobilePostingCommentProps = {
+  avatar: string;
+  lengthError: boolean;
+  replyToUsername: string;
+  defaultValue: any;
+  replyMode: boolean;
+  setContent: any;
+};
+
 export function MobilePostingComment({
   avatar,
   lengthError,
@@ -7,14 +16,7 @@ export function MobilePostingComment({
   defaultValue,
   replyMode,
   setContent,
-}: {
-  avatar: string;
-  lengthError: boolean;
-  replyToUsername: string;
-  defaultValue: any;
-  replyMode: boolean;
-  setContent: any;
-}) {
+}: MobilePostingCommentProps) {
   return (
     <Box
       bgColor="white"

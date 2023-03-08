@@ -3,15 +3,17 @@ import { Box, Text } from "@chakra-ui/react";
 import { UpdateComment } from "../../../UpdateComment";
 import { EditContext } from "../../../../../context";
 
+type ContentDisplayProps = {
+  id: number;
+  content: string;
+  replyingTo?: string;
+};
+
 export function ContentDisplay({
   id,
   content,
   replyingTo,
-}: {
-  id: number;
-  content: string;
-  replyingTo?: string;
-}) {
+}: ContentDisplayProps) {
   const { editID } = React.useContext(EditContext);
 
   return (

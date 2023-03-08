@@ -9,13 +9,15 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { DesktopPostingComment } from "./DesktopPostingComment";
 import { MobilePostingComment } from "./MobilePostingComment";
 
+type PostingCommentProps = {
+  defaultValue: string | any;
+  replyMode: boolean;
+};
+
 export function PostingComment({
   defaultValue,
   replyMode,
-}: {
-  defaultValue: string | any;
-  replyMode: boolean;
-}) {
+}: PostingCommentProps) {
   const { replyToUsername } = React.useContext(ReplyToUsernameContext);
 
   const [content, setContent] = React.useState<string>("");

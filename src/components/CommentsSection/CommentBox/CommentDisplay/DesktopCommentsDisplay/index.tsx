@@ -6,6 +6,16 @@ import { Rater } from "../../Rater";
 import { ReplyToComment } from "../ReplyToComment";
 import { ContentDisplay } from "../ContentDisplay";
 
+type DesktopCommentsDisplayProps = {
+  id: number;
+  score: number;
+  username: string;
+  date: string;
+  content: string;
+  replyingTo?: string;
+  avatar: string;
+};
+
 export function DesktopCommentsDisplay({
   id,
   score,
@@ -14,15 +24,7 @@ export function DesktopCommentsDisplay({
   content,
   replyingTo,
   avatar,
-}: {
-  id: number;
-  score: number;
-  username: string;
-  date: string;
-  content: string;
-  replyingTo?: string;
-  avatar: string;
-}) {
+}: DesktopCommentsDisplayProps) {
   return (
     <Box
       display="flex"
@@ -35,7 +37,7 @@ export function DesktopCommentsDisplay({
       padding="20px"
       marginBottom="20px"
     >
-      <Rater score={score} username={username} />
+      <Rater score={score} />
       <Box display="flex" flexDirection="column" w="100%" h="100%">
         <Box
           display="flex"

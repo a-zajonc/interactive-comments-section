@@ -3,7 +3,11 @@ import { useContext } from "react";
 import { EditContext } from "../../../context";
 import imgEdit from "../../../images/svg/icon-edit.svg";
 
-export function EditComment({ id }: { id: number }) {
+type EditCommentProps = {
+  id: number;
+};
+
+export function EditComment({ id }: EditCommentProps) {
   const { editID, setEditID } = useContext(EditContext);
 
   return (
