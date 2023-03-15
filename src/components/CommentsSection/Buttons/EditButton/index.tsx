@@ -1,13 +1,13 @@
 import { Box, Img, Text } from "@chakra-ui/react";
 import { useContext } from "react";
-import { EditContext } from "../../../context";
-import imgEdit from "../../../images/svg/icon-edit.svg";
+import { EditContext } from "../../../../context";
+import imgEdit from "../../../../images/svg/icon-edit.svg";
 
-type EditCommentProps = {
+type EditButtonProps = {
   id: number;
 };
 
-export function EditComment({ id }: EditCommentProps) {
+export function EditButton({ id }: EditButtonProps) {
   const { editID, setEditID } = useContext(EditContext);
 
   return (

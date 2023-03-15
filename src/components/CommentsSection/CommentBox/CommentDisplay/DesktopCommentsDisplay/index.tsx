@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { DeleteComment } from "../../../DeleteComment";
-import { EditComment } from "../../../EditComment";
 import { UserDataDisplay } from "../UserDataDisplay";
 import { Rater } from "../../Rater";
 import { ReplyToComment } from "../ReplyToComment";
 import { ContentDisplay } from "../ContentDisplay";
+import { EditButton } from "../../../Buttons/EditButton";
 
 type DesktopCommentsDisplayProps = {
   id: number;
@@ -54,7 +54,7 @@ export function DesktopCommentsDisplay({
                 alignItems="center"
               >
                 <DeleteComment id={id} />
-                <EditComment id={id} />
+                <EditButton id={id} />
               </Box>
             ) : (
               <ReplyToComment id={id} username={username} />
