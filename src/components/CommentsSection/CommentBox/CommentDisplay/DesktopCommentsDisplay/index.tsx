@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { DeleteComment } from "../../../DeleteComment";
 import { UserDataDisplay } from "../UserDataDisplay";
 import { Rater } from "../../Rater";
-import { ReplyToComment } from "../ReplyToComment";
+import { ReplyButton } from "../../../Buttons/ReplyButton";
 import { ContentDisplay } from "../ContentDisplay";
 import { EditButton } from "../../../Buttons/EditButton";
 
@@ -57,7 +57,7 @@ export function DesktopCommentsDisplay({
                 <EditButton id={id} />
               </Box>
             ) : (
-              <ReplyToComment id={id} username={username} />
+              <ReplyButton id={id} username={username} />
             )}
           </Box>
         </Box>
