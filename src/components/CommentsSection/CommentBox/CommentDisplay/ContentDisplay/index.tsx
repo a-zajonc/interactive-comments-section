@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { UpdateComment } from "../../../UpdateComment";
+import { EditComment } from "../../../EditComment/";
 import { EditContext } from "../../../../../context";
 
 type ContentDisplayProps = {
@@ -20,7 +20,7 @@ export function ContentDisplay({
     <Box>
       {replyingTo ? (
         editID === id ? (
-          <UpdateComment content={content} replyingTo={replyingTo} />
+          <EditComment content={content} replyingTo={replyingTo} />
         ) : (
           <Box>
             <Text
@@ -37,7 +37,7 @@ export function ContentDisplay({
           </Box>
         )
       ) : editID === id ? (
-        <UpdateComment content={content} replyingTo={replyingTo} />
+        <EditComment content={content} replyingTo={replyingTo} />
       ) : (
         <Text color="#67727E">{content}</Text>
       )}
