@@ -6,7 +6,7 @@ import { Rater } from "../../Rater";
 import { ReplyToComment } from "../ReplyToComment";
 import { ContentDisplay } from "../ContentDisplay";
 
-type MobileCommentsDisplay = {
+type MobileCommentsDisplayProps = {
   id: number;
   score: number;
   username: string;
@@ -24,7 +24,7 @@ export function MobileCommentsDisplay({
   content,
   replyingTo,
   avatar,
-}: MobileCommentsDisplay) {
+}: MobileCommentsDisplayProps) {
   return (
     <Box
       display="flex"
