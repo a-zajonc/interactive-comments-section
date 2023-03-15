@@ -6,26 +6,26 @@ type RaterProps = {
   score: number;
 };
 
+function isDisabled(type: string, initialScore: number, newScore: number) {
+  if (initialScore === newScore) {
+    return false;
+  }
+  if (type === "minus") {
+    if (newScore === initialScore - 1) {
+      return true;
+    }
+  }
+  if (type === "plus") {
+    if (newScore === initialScore + 1) {
+      return true;
+    }
+  }
+}
+
 export function Rater({ score }: RaterProps) {
   const [newScore, setNewScore] = React.useState(score);
 
   const initialScore = score;
-
-  function isDisabled(type: string) {
-    if (initialScore === newScore) {
-      return false;
-    }
-    if (type === "minus") {
-      if (newScore === initialScore - 1) {
-        return true;
-      }
-    }
-    if (type === "plus") {
-      if (newScore === initialScore + 1) {
-        return true;
-      }
-    }
-  }
 
   return (
     <Box
@@ -50,7 +50,7 @@ export function Rater({ score }: RaterProps) {
         onClick={() => {
           setNewScore(newScore + 1);
         }}
-        isDisabled={isDisabled("plus")}
+        isDisabled={isDisabled("plus", initialScore, newScore)}
       ></IconButton>
       <Text color="#5457B6" fontWeight="700" padding="10px">
         {newScore}
@@ -66,7 +66,7 @@ export function Rater({ score }: RaterProps) {
         onClick={() => {
           setNewScore(newScore - 1);
         }}
-        isDisabled={isDisabled("minus")}
+        isDisabled={isDisabled("minus", initialScore, newScore)}
       ></IconButton>
     </Box>
   );

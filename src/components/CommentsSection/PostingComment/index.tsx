@@ -14,18 +14,36 @@ type PostingCommentProps = {
   replyMode: boolean;
 };
 
+function addReplyToReply(comments: any, addedComment: any, replyID: number) {
+  const replyToReplyId = comments
+    .map((singleComment: any, commentIndex: number) => {
+      return singleComment.replies
+        .map((reply: any, replyIndex: number) => {
+          if (reply.id === replyID) {
+            return [commentIndex, replyIndex];
+          }
+        })
+        .filter((element: any) => {
+          return element !== undefined;
+        });
+    })
+    .flat(3);
+  comments[replyToReplyId[0]].replies.splice(
+    replyToReplyId[1] + 1,
+    0,
+    addedComment
+  );
+  return [...comments];
+}
+
 export function PostingComment({
   defaultValue,
   replyMode,
 }: PostingCommentProps) {
   const { replyToUsername } = React.useContext(ReplyToUsernameContext);
-
   const [content, setContent] = React.useState<string>("");
-
   const { comments, setComments } = React.useContext(CommentsContext);
-
   const { replyID, setReplyID } = React.useContext(ReplyContext);
-
   const [lengthError, setLengthError] = React.useState(false);
 
   function repliesLength(comments: any) {
@@ -80,29 +98,6 @@ export function PostingComment({
 
   const handleSubmit = (event: any | undefined) => {
     event.preventDefault();
-
-    function addReplyToReply() {
-      const replyToReplyId = comments
-        .map((singleComment: any, commentIndex: number) => {
-          return singleComment.replies
-            .map((reply: any, replyIndex: number) => {
-              if (reply.id === replyID) {
-                return [commentIndex, replyIndex];
-              }
-            })
-            .filter((element: any) => {
-              return element !== undefined;
-            });
-        })
-        .flat(3);
-      comments[replyToReplyId[0]].replies.splice(
-        replyToReplyId[1] + 1,
-        0,
-        addedComment
-      );
-      return [...comments];
-    }
-
     !content || content.length < 5
       ? setLengthError(true)
       : setComments((comments: any) => {
@@ -124,7 +119,7 @@ export function PostingComment({
               return singleComment;
             });
           } else {
-            return addReplyToReply();
+            return addReplyToReply(comments, addedComment, replyID);
           }
         });
     if (content.length >= 5) {
@@ -136,8 +131,6 @@ export function PostingComment({
     }
     if (replyMode === true && content.length >= 5) {
       setReplyID(0);
-    }
-    if (replyMode === true && content.length >= 5) {
     }
   };
 
