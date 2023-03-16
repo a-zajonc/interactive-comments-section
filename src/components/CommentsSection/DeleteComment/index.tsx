@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
   Popover,
-  Text,
-  Img,
   PopoverTrigger,
   PopoverHeader,
   PopoverContent,
@@ -14,30 +12,15 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
-import imgDelete from "../../../images/svg/icon-delete.svg";
-import { CommentsContext, DeleteContext } from "../../../context";
+import { CommentsContext } from "../../../context";
+import { DeleteButton } from "../Buttons/DeleteButton";
 
 type DeleteCommentProps = {
   id: number;
 };
 
-export function DeleteComment({ id }: DeleteCommentProps) {
-  const { deleteID, setDeleteID } = React.useContext(DeleteContext);
-  const { comments, setComments } = React.useContext(CommentsContext);
-
-  function findDeletedCommentIndex() {
-    const index: number = comments.findIndex((singleComment: any) => {
-      return singleComment.id === id;
-    });
-    return index >= 0
-      ? comments.splice(index, 1) && setComments([...comments])
-      : comments[replyCommentIndex[0]].replies.splice(
-          replyCommentIndex[1],
-          1
-        ) && setComments([...comments]);
-  }
-
-  const replyCommentIndex = comments
+const findReplyCommentIndex = (comments: any, id: number) =>
+  comments
     .map((singleComment: any, singleCommentIndex: any) => {
       return singleComment.replies
         .map((reply: any, replyIndex: any) => {
@@ -52,24 +35,31 @@ export function DeleteComment({ id }: DeleteCommentProps) {
     .filter((element: any) => element.length > 0)
     .flat(2);
 
+export function DeleteComment({ id }: DeleteCommentProps) {
+  const { comments, setComments } = React.useContext(CommentsContext);
+
+  const removeComment = () => {
+    const index: number = comments.findIndex((singleComment: any) => {
+      return singleComment.id === id;
+    });
+    if (index >= 0) {
+      return comments.splice(index, 1) && setComments([...comments]);
+    } else {
+      const replyIndex = findReplyCommentIndex(comments, id);
+      return (
+        comments[replyIndex[0]].replies.splice(replyIndex[1], 1) &&
+        setComments([...comments])
+      );
+    }
+  };
+
   return (
     <Popover>
       {({ onClose }) => (
         <>
           <PopoverTrigger>
-            <Box
-              role="button"
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              onClick={() => {
-                deleteID === id ? setDeleteID(0) : setDeleteID(id);
-              }}
-            >
-              <Img src={imgDelete} alt="delete" marginRight="10px" />
-              <Text color="#ED6468" fontWeight="500">
-                Delete
-              </Text>
+            <Box>
+              <DeleteButton />
             </Box>
           </PopoverTrigger>
           <PopoverContent w="350px" padding="10px" borderColor="#D0d2d6">
@@ -100,7 +90,7 @@ export function DeleteComment({ id }: DeleteCommentProps) {
                   color="white"
                   padding="22px"
                   rounded="5px"
-                  onClick={() => findDeletedCommentIndex()}
+                  onClick={() => removeComment()}
                 >
                   Yes, delete
                 </Button>
