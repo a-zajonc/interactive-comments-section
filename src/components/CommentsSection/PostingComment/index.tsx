@@ -1,13 +1,10 @@
 import * as React from "react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
-import {
-  CommentsContext,
-  ReplyContext,
-  ReplyToUsernameContext,
-} from "../../../context";
+import { CommentsContext, ReplyContext } from "../../../context";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { DesktopPostingComment } from "./DesktopPostingComment";
 import { MobilePostingComment } from "./MobilePostingComment";
+import { useReplyToUsername } from "../../../hooks/useReplyToUsername";
 
 type PostingCommentProps = {
   defaultValue: string | any;
@@ -40,7 +37,7 @@ export function PostingComment({
   defaultValue,
   replyMode,
 }: PostingCommentProps) {
-  const { replyToUsername } = React.useContext(ReplyToUsernameContext);
+  const { replyToUsername } = useReplyToUsername();
   const [content, setContent] = React.useState<string>("");
   const { comments, setComments } = React.useContext(CommentsContext);
   const { replyID, setReplyID } = React.useContext(ReplyContext);

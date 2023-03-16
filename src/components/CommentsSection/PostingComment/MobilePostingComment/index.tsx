@@ -3,7 +3,7 @@ import { Box, Img, Textarea, Button, Text } from "@chakra-ui/react";
 type MobilePostingCommentProps = {
   avatar: string;
   lengthError: boolean;
-  replyToUsername: string;
+  replyToUsername?: string;
   defaultValue: any;
   replyMode: boolean;
   setContent: any;
