@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { EditComment } from "../../../EditComment/";
 import { EditContext } from "../../../../../context";
-import { useEditID } from "../../../../../hooks/useEditId";
+import { useEditID } from "../../../../../hooks/useEdit";
 
 type ContentDisplayProps = {
   id: number;

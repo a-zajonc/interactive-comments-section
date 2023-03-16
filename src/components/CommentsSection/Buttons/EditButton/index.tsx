@@ -1,5 +1,5 @@
 import { Box, Img, Text } from "@chakra-ui/react";
-import { useEditID } from "../../../../hooks/useEditId";
+import { useEditID } from "../../../../hooks/useEdit";
 import imgEdit from "../../../../images/svg/icon-edit.svg";
 
 type EditButtonProps = {

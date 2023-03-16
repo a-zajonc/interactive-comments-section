@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Box } from "@chakra-ui/react";
 import { CommentDisplay } from "./CommentDisplay";
-import { CommentsContext, ReplyContext } from "../../../context";
+import { CommentsContext } from "../../../context";
 import { PostingComment } from "../PostingComment";
 import { useReplyToUsername } from "../../../hooks/useReplyToUsername";
+import { useReplyID } from "../../../hooks/useReply";
 
 export function CommentBox() {
   const { comments } = React.useContext(CommentsContext);
-  const { replyID } = React.useContext(ReplyContext);
+  const { replyID } = useReplyID();
   const { replyToUsername } = useReplyToUsername();
 
   return (

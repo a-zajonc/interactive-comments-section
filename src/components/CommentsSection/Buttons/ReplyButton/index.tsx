@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box, Img, Text } from "@chakra-ui/react";
 import imgReply from "../../../../images/svg/icon-reply.svg";
-import { ReplyContext } from "../../../../context";
 import { useReplyToUsername } from "../../../../hooks/useReplyToUsername";
+import { useReplyID } from "../../../../hooks/useReply";
 
 type ReplyButtonProps = {
   id: number;
@@ -10,7 +10,7 @@ type ReplyButtonProps = {
 };
 
 export function ReplyButton({ id, username }: ReplyButtonProps) {
-  const { replyID, setReplyID } = React.useContext(ReplyContext);
+  const { replyID, setReplyID } = useReplyID();
   const { setReplyToUsername } = useReplyToUsername();
 
   return (
