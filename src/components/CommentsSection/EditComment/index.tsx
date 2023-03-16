@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Box, Textarea, Button, Text } from "@chakra-ui/react";
-import { CommentsContext, EditContext } from "../../../context";
+import { CommentsContext } from "../../../context";
+import { useEditID } from "../../../hooks/useEditId";
 
 type EditCommentProps = {
   content: string;
@@ -10,7 +11,7 @@ type EditCommentProps = {
 export function EditComment({ content, replyingTo }: EditCommentProps) {
   const [updatedContent, setUpdatedContent] = React.useState(content);
   const { comments } = React.useContext(CommentsContext);
-  const { editID, setEditID } = React.useContext(EditContext);
+  const { editID, setEditID } = useEditID();
   const [lengthError, setLengthError] = React.useState(false);
 
   const handleSubmit = (event: any | undefined) => {
