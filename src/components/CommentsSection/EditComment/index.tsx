@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Textarea, Button, Text } from "@chakra-ui/react";
 import { CommentsContext } from "../../../context";
-import { useEditID } from "../../../hooks/useEditId";
+import { useEditID } from "../../../hooks/useEdit";
 
 type EditCommentProps = {
   content: string;

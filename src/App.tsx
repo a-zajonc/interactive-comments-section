@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Box } from "@chakra-ui/react";
 import { CommentSection } from "./components/";
-import { CommentsContext, ReplyContext } from "./context";
+import { CommentsContext } from "./context";
 import { ReplyToUsernameContext } from "./hooks/useReplyToUsername";
-import { EditContext } from "./hooks/useEditId";
+import { EditContext } from "./hooks/useEdit";
+import { ReplyContext } from "./hooks/useReply";
 
 function App() {
   const [comments, setComments] = React.useState([]);

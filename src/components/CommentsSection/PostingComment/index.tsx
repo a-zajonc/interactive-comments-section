@@ -1,17 +1,22 @@
 import * as React from "react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
-import { CommentsContext, ReplyContext } from "../../../context";
+import { CommentsContext } from "../../../context";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { DesktopPostingComment } from "./DesktopPostingComment";
 import { MobilePostingComment } from "./MobilePostingComment";
 import { useReplyToUsername } from "../../../hooks/useReplyToUsername";
+import { useReplyID } from "../../../hooks/useReply";
 
 type PostingCommentProps = {
   defaultValue: string | any;
   replyMode: boolean;
 };
 
-function addReplyToReply(comments: any, addedComment: any, replyID: number) {
+function addReplyToReply(
+  comments: any,
+  addedComment: any,
+  replyID: number | undefined
+) {
   const replyToReplyId = comments
     .map((singleComment: any, commentIndex: number) => {
       return singleComment.replies
@@ -40,7 +45,7 @@ export function PostingComment({
   const { replyToUsername } = useReplyToUsername();
   const [content, setContent] = React.useState<string>("");
   const { comments, setComments } = React.useContext(CommentsContext);
-  const { replyID, setReplyID } = React.useContext(ReplyContext);
+  const { replyID, setReplyID } = useReplyID();
   const [lengthError, setLengthError] = React.useState(false);
 
   function repliesLength(comments: any) {
