@@ -2,6 +2,7 @@ import * as React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { EditComment } from "../../../EditComment/";
 import { EditContext } from "../../../../../context";
+import { useEditID } from "../../../../../hooks/useEditId";
 
 type ContentDisplayProps = {
   id: number;
@@ -14,7 +15,7 @@ export function ContentDisplay({
   content,
   replyingTo,
 }: ContentDisplayProps) {
-  const { editID } = React.useContext(EditContext);
+  const { editID } = useEditID();
 
   return (
     <Box>

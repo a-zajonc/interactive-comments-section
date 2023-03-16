@@ -1,6 +1,5 @@
 import { Box, Img, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-import { EditContext } from "../../../../context";
+import { useEditID } from "../../../../hooks/useEditId";
 import imgEdit from "../../../../images/svg/icon-edit.svg";
 
 type EditButtonProps = {
@@ -8,8 +7,7 @@ type EditButtonProps = {
 };
 
 export function EditButton({ id }: EditButtonProps) {
-  const { editID, setEditID } = useContext(EditContext);
-
+  const { editID, setEditID } = useEditID();
   return (
     <Box
       role="button"
