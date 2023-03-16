@@ -1,20 +1,19 @@
 import * as React from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { EditComment } from "../../../EditComment/";
-import { EditContext } from "../../../../../context";
+import { EditComment } from "../../../EditComment";
 import { useEditID } from "../../../../../hooks/useEdit";
 
-type ContentDisplayProps = {
+type CommentContentDisplayProps = {
   id: number;
   content: string;
   replyingTo?: string;
 };
 
-export function ContentDisplay({
+export function CommentContentDisplay({
   id,
   content,
   replyingTo,
-}: ContentDisplayProps) {
+}: CommentContentDisplayProps) {
   const { editID } = useEditID();
 
   return (

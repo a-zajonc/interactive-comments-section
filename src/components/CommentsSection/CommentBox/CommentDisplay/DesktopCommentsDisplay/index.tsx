@@ -3,7 +3,7 @@ import { DeleteComment } from "../../../DeleteComment";
 import { UserDataDisplay } from "../UserDataDisplay";
 import { Rater } from "../../Rater";
 import { ReplyButton } from "../../../Buttons/ReplyButton";
-import { ContentDisplay } from "../ContentDisplay";
+import { CommentContentDisplay } from "../CommentContentDisplay";
 import { EditButton } from "../../../Buttons/EditButton";
 
 type DesktopCommentsDisplayProps = {
@@ -61,7 +61,11 @@ export function DesktopCommentsDisplay({
             )}
           </Box>
         </Box>
-        <ContentDisplay id={id} content={content} replyingTo={replyingTo} />
+        <CommentContentDisplay
+          id={id}
+          content={content}
+          replyingTo={replyingTo}
+        />
       </Box>
     </Box>
   );
