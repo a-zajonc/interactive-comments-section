@@ -3,7 +3,7 @@ import { DeleteComment } from "../../../DeleteComment";
 import { UserDataDisplay } from "../UserDataDisplay";
 import { Rater } from "../../Rater";
 import { ReplyButton } from "../../../Buttons/ReplyButton";
-import { ContentDisplay } from "../ContentDisplay";
+import { CommentContentDisplay } from "../CommentContentDisplay";
 import { EditButton } from "../../../Buttons/EditButton";
 
 type MobileCommentsDisplayProps = {
@@ -39,7 +39,11 @@ export function MobileCommentsDisplay({
       justifyContent="space-between"
     >
       <UserDataDisplay username={username} avatar={avatar} date={date} />
-      <ContentDisplay id={id} content={content} replyingTo={replyingTo} />
+      <CommentContentDisplay
+        id={id}
+        content={content}
+        replyingTo={replyingTo}
+      />
       <Box
         display="flex"
         flexDirection="row"
