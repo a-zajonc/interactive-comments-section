@@ -12,8 +12,8 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
-import { CommentsContext } from "../../../context";
 import { DeleteButton } from "../Buttons/DeleteButton";
+import { useCommentsData, Comment } from "../../../hooks/useCommentsData";
 
 type DeleteCommentProps = {
   id: number;
@@ -36,18 +36,24 @@ const findReplyCommentIndex = (comments: any, id: number) =>
     .flat(2);
 
 export function DeleteComment({ id }: DeleteCommentProps) {
-  const { comments, setComments } = React.useContext(CommentsContext);
+  const { comments, setComments } = useCommentsData();
 
   const removeComment = () => {
-    const index: number = comments.findIndex((singleComment: any) => {
-      return singleComment.id === id;
-    });
-    if (index >= 0) {
-      return comments.splice(index, 1) && setComments([...comments]);
+    const index: number | undefined =
+      comments &&
+      comments.findIndex((singleComment: Comment) => {
+        console.log(typeof singleComment);
+        return singleComment.id === id;
+      });
+    if (index && index >= 0) {
+      return (
+        comments && comments.splice(index, 1) && setComments([...comments])
+      );
     } else {
       const replyIndex = findReplyCommentIndex(comments, id);
       return (
-        comments[replyIndex[0]].replies.splice(replyIndex[1], 1) &&
+        comments &&
+        comments[replyIndex[0]].replies?.splice(replyIndex[1], 1) &&
         setComments([...comments])
       );
     }
