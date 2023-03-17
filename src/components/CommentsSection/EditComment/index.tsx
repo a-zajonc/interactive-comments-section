@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Textarea, Button, Text } from "@chakra-ui/react";
-import { CommentsContext } from "../../../context";
 import { useEditID } from "../../../hooks/useEdit";
+import { Comment, useCommentsData } from "../../../hooks/useCommentsData";
 
 type EditCommentProps = {
   content: string;
@@ -10,7 +10,7 @@ type EditCommentProps = {
 
 export function EditComment({ content, replyingTo }: EditCommentProps) {
   const [updatedContent, setUpdatedContent] = React.useState(content);
-  const { comments } = React.useContext(CommentsContext);
+  const { comments } = useCommentsData();
   const { editID, setEditID } = useEditID();
   const [lengthError, setLengthError] = React.useState(false);
 
@@ -18,11 +18,12 @@ export function EditComment({ content, replyingTo }: EditCommentProps) {
     event.preventDefault();
     updatedContent.length < 5
       ? setLengthError(true)
-      : comments.map((singleComment: any) => {
+      : comments &&
+        comments.map((singleComment: Comment) => {
           if (singleComment.id === editID) {
             return (singleComment.content = updatedContent);
           }
-          singleComment.replies.map((reply: any) => {
+          singleComment.replies?.map((reply: Comment) => {
             if (reply.id === editID) {
               return (reply.content = updatedContent);
             }

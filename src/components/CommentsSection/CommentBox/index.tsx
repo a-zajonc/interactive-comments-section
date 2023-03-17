@@ -1,20 +1,21 @@
 import * as React from "react";
 import { Box } from "@chakra-ui/react";
 import { CommentDisplay } from "./CommentDisplay";
-import { CommentsContext } from "../../../context";
 import { PostingComment } from "../PostingComment";
 import { useReplyToUsername } from "../../../hooks/useReplyToUsername";
 import { useReplyID } from "../../../hooks/useReply";
+import { useCommentsData } from "../../../hooks/useCommentsData";
+import { Comment } from "../../../hooks/useCommentsData";
 
 export function CommentBox() {
-  const { comments } = React.useContext(CommentsContext);
+  const { comments } = useCommentsData();
   const { replyID } = useReplyID();
   const { replyToUsername } = useReplyToUsername();
 
   return (
     <Box>
       {comments &&
-        comments.map((singleComment: any, id: number) => {
+        comments.map((singleComment: Comment, id: number) => {
           return (
             <Box
               key={id.toString()}
@@ -54,7 +55,7 @@ export function CommentBox() {
                     xl: "65px",
                   }}
                 >
-                  {singleComment.replies.map((reply: any) => {
+                  {singleComment.replies?.map((reply: Comment) => {
                     return (
                       <Box
                         key={reply.id}

@@ -1,11 +1,11 @@
 import * as React from "react";
 import avatar from "../../../images/avatars/image-juliusomo.png";
-import { CommentsContext } from "../../../context";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { DesktopPostingComment } from "./DesktopPostingComment";
 import { MobilePostingComment } from "./MobilePostingComment";
 import { useReplyToUsername } from "../../../hooks/useReplyToUsername";
 import { useReplyID } from "../../../hooks/useReply";
+import { useCommentsData, Comment } from "../../../hooks/useCommentsData";
 
 type PostingCommentProps = {
   defaultValue: string | any;
@@ -44,7 +44,7 @@ export function PostingComment({
 }: PostingCommentProps) {
   const { replyToUsername } = useReplyToUsername();
   const [content, setContent] = React.useState<string>("");
-  const { comments, setComments } = React.useContext(CommentsContext);
+  const { comments, setComments } = useCommentsData();
   const { replyID, setReplyID } = useReplyID();
   const [lengthError, setLengthError] = React.useState(false);
 
@@ -80,50 +80,33 @@ export function PostingComment({
     },
     replies: [],
   };
-  interface Comment {
-    id: number;
-    content: string | undefined;
-    createdAt: string;
-    score: number;
-    user: User;
-    replies?: Comment[];
-    replyingTo?: string;
-  }
-  interface User {
-    image: Image;
-    username: string;
-  }
-  interface Image {
-    png: string;
-    webp: string;
-  }
 
   const handleSubmit = (event: any | undefined) => {
+    const addComment = (comments: Array<Comment>) => {
+      if (replyMode === false) {
+        return [...comments, addedComment];
+      }
+      if (
+        comments.find((singleComment: any) => singleComment.id === replyID) !==
+        undefined
+      ) {
+        return comments.map((singleComment: any) => {
+          if (singleComment.id === replyID) {
+            return {
+              ...singleComment,
+              replies: singleComment.replies.concat(addedComment),
+            };
+          }
+          return singleComment;
+        });
+      } else {
+        return addReplyToReply(comments, addedComment, replyID);
+      }
+    };
     event.preventDefault();
     !content || content.length < 5
       ? setLengthError(true)
-      : setComments((comments: any) => {
-          if (replyMode === false) {
-            return [...comments, addedComment];
-          }
-          if (
-            comments.find(
-              (singleComment: any) => singleComment.id === replyID
-            ) !== undefined
-          ) {
-            return comments.map((singleComment: any) => {
-              if (singleComment.id === replyID) {
-                return {
-                  ...singleComment,
-                  replies: singleComment.replies.concat(addedComment),
-                };
-              }
-              return singleComment;
-            });
-          } else {
-            return addReplyToReply(comments, addedComment, replyID);
-          }
-        });
+      : comments && setComments(addComment(comments));
     if (content.length >= 5) {
       setLengthError(false);
       setContent("");

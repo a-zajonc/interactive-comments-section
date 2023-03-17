@@ -2,15 +2,14 @@ import * as React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { CommentBox } from "./CommentBox";
 import { PostingComment } from "./PostingComment";
-import { CommentsContext } from "../../context";
 import { MutatingDots } from "react-loader-spinner";
+import { useCommentsData } from "../../hooks/useCommentsData";
 
 export function CommentSection() {
-  const { comments } = React.useContext(CommentsContext);
-
+  const { comments } = useCommentsData();
   return (
     <Box>
-      {comments.length < 1 ? (
+      {comments && comments.length < 1 ? (
         <Box display="flex" flexDir="column" alignItems="center">
           <MutatingDots
             height="100"

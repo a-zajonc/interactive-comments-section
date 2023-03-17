@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Box } from "@chakra-ui/react";
 import { CommentSection } from "./components/";
-import { CommentsContext } from "./context";
 import { ReplyToUsernameContext } from "./hooks/useReplyToUsername";
 import { EditContext } from "./hooks/useEdit";
 import { ReplyContext } from "./hooks/useReply";
+import { CommentsDataContext, Comment } from "./hooks/useCommentsData";
 
 function App() {
-  const [comments, setComments] = React.useState([]);
+  const [comments, setComments] = React.useState<Comment[]>();
   const [replyID, setReplyID] = React.useState(0);
   const [replyToUsername, setReplyToUsername] = React.useState("");
   const [editID, setEditID] = React.useState(0);
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <Box display="flex" justifyContent="center" marginBlock="80px">
-      <CommentsContext.Provider value={{ comments, setComments }}>
+      <CommentsDataContext.Provider value={{ comments, setComments }}>
         <EditContext.Provider value={{ editID, setEditID }}>
           <ReplyContext.Provider value={{ replyID, setReplyID }}>
             <ReplyToUsernameContext.Provider
@@ -32,7 +32,7 @@ function App() {
             </ReplyToUsernameContext.Provider>
           </ReplyContext.Provider>
         </EditContext.Provider>
-      </CommentsContext.Provider>
+      </CommentsDataContext.Provider>
     </Box>
   );
 }
